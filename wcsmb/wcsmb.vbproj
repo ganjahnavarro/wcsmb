@@ -1,0 +1,770 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{762059F2-BEE3-4ADB-AEB5-0AFC04E5D217}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>wcsmb.My.MyApplication</StartupObject>
+    <RootNamespace>wcsmb</RootNamespace>
+    <AssemblyName>wcsmb</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>WindowsForms</MyType>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>wcsmb.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>wcsmb.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.8.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity.EF5, Version=6.8.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.8.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Threading.Tasks" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants.vb" />
+    <Compile Include="Model\activity.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\adjustment.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\agent.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\category.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\collectioncheckitem.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\collectionorderitem.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\counter.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\customer.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\customercollection.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Dummy\_Monitor.vb" />
+    <Compile Include="Model\Dummy\_Movement.vb" />
+    <Compile Include="Model\Dummy\_Special.vb" />
+    <Compile Include="Model\Dummy\_Statement.vb" />
+    <Compile Include="Model\Dummy\_StatementDetail.vb" />
+    <Compile Include="Model\Dummy\_StockMonitor.vb" />
+    <Compile Include="Model\Dummy\_Transaction.vb" />
+    <Compile Include="Model\Dummy\_TransactionDetail.vb" />
+    <Compile Include="Model\Dummy\_TransactionList.vb" />
+    <Compile Include="Model\EnterDataGridView.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\EntityManager.Context.vb" />
+    <Compile Include="Model\EntityManager.Designer.vb">
+      <DependentUpon>EntityManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EntityManager.vb" />
+    <Compile Include="Model\EntityManager1.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\IControl.vb" />
+    <Compile Include="Model\paymentcheckitem.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\paymentorderitem.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Print\Dialog\CoolPrintPreviewControl.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Model\Print\Dialog\CoolPrintPreviewDialog.Designer.vb">
+      <DependentUpon>CoolPrintPreviewDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Print\Dialog\CoolPrintPreviewDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\Print\Dialog\PageImageList.vb" />
+    <Compile Include="Model\Print\PrintCustomers.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintMonitor.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintMonitorByAgent.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintMonitorStock.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintMovement.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintSpecial.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintStatement.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintStatementDetail.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintSuppliers.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintTransaction.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintTransactionDetail.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintTransactionList.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\Print\PrintWithHeader.vb">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Model\purchaseorder.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\purchaseorderitem.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\purchasereturn.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\purchasereturnitem.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\salesorder.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\salesorderitem.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\salesreturn.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\salesreturnitem.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\stock.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\supplier.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\supplierpayment.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\unit.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\user.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Util.vb" />
+    <Compile Include="View\Controller.Designer.vb">
+      <DependentUpon>Controller.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Controller.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Files\FAgent.Designer.vb">
+      <DependentUpon>FAgent.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Files\FAgent.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Files\FCategory.Designer.vb">
+      <DependentUpon>FCategory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Files\FCategory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Files\FCustomer.Designer.vb">
+      <DependentUpon>FCustomer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Files\FCustomer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Files\FStock.Designer.vb">
+      <DependentUpon>FStock.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Files\FStock.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Files\FSupplier.Designer.vb">
+      <DependentUpon>FSupplier.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Files\FSupplier.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Files\FUnit.Designer.vb">
+      <DependentUpon>FUnit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Files\FUnit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Others\EtcAbout.Designer.vb">
+      <DependentUpon>EtcAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Others\EtcAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Others\EtcAddItem.Designer.vb">
+      <DependentUpon>EtcAddItem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Others\EtcAddItem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Others\EtcHelp.Designer.vb">
+      <DependentUpon>EtcHelp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Others\EtcHelp.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Others\EtcLogin.Designer.vb">
+      <DependentUpon>EtcLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Others\EtcLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Others\EtcSearch.Designer.vb">
+      <DependentUpon>EtcSearch.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Others\EtcSearch.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Others\EtcSettings.Designer.vb">
+      <DependentUpon>EtcSettings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Others\EtcSettings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Others\EtcSplash.Designer.vb">
+      <DependentUpon>EtcSplash.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Others\EtcSplash.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Others\EtcUsers.Designer.vb">
+      <DependentUpon>EtcUsers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Others\EtcUsers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Post\PostCC.Designer.vb">
+      <DependentUpon>PostCC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Post\PostCC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Post\PostPO.Designer.vb">
+      <DependentUpon>PostPO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Post\PostPO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Post\PostPR.Designer.vb">
+      <DependentUpon>PostPR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Post\PostPR.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Post\PostSO.Designer.vb">
+      <DependentUpon>PostSO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Post\PostSO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Post\PostSP.Designer.vb">
+      <DependentUpon>PostSP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Post\PostSP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Post\PostSR.Designer.vb">
+      <DependentUpon>PostSR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Post\PostSR.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\RptPurchaseMn.Designer.vb">
+      <DependentUpon>RptPurchaseMn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\RptPurchaseMn.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\RptSalesMn.Designer.vb">
+      <DependentUpon>RptSalesMn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\RptSalesMn.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\RptSOA.Designer.vb">
+      <DependentUpon>RptSOA.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\RptSOA.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\RptStockMn.Designer.vb">
+      <DependentUpon>RptStockMn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\RptStockMn.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\RptStockMv.Designer.vb">
+      <DependentUpon>RptStockMv.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\RptStockMv.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\RptSupplierPy.Designer.vb">
+      <DependentUpon>RptSupplierPy.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\RptSupplierPy.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Reports\RptTransactions.Designer.vb">
+      <DependentUpon>RptTransactions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Reports\RptTransactions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transaction\SelectCC.Designer.vb">
+      <DependentUpon>SelectCC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transaction\SelectCC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transaction\SelectSP.Designer.vb">
+      <DependentUpon>SelectSP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transaction\SelectSP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transaction\TransCC.Designer.vb">
+      <DependentUpon>TransCC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transaction\TransCC.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transaction\TransPO.Designer.vb">
+      <DependentUpon>TransPO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transaction\TransPO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transaction\TransPR.Designer.vb">
+      <DependentUpon>TransPR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transaction\TransPR.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transaction\TransSO.Designer.vb">
+      <DependentUpon>TransSO.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transaction\TransSO.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transaction\TransSP.Designer.vb">
+      <DependentUpon>TransSP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transaction\TransSP.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Transaction\TransSR.Designer.vb">
+      <DependentUpon>TransSR.vb</DependentUpon>
+    </Compile>
+    <Compile Include="View\Transaction\TransSR.vb">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model\Print\Dialog\CoolPrintPreviewDialog.resx">
+      <DependentUpon>CoolPrintPreviewDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Controller.resx">
+      <DependentUpon>Controller.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Files\FAgent.resx">
+      <DependentUpon>FAgent.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Files\FCategory.resx">
+      <DependentUpon>FCategory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Files\FCustomer.resx">
+      <DependentUpon>FCustomer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Files\FStock.resx">
+      <DependentUpon>FStock.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Files\FSupplier.resx">
+      <DependentUpon>FSupplier.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Files\FUnit.resx">
+      <DependentUpon>FUnit.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Main.resx" />
+    <EmbeddedResource Include="View\Others\EtcAbout.resx">
+      <DependentUpon>EtcAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Others\EtcAddItem.resx">
+      <DependentUpon>EtcAddItem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Others\EtcHelp.resx">
+      <DependentUpon>EtcHelp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Others\EtcLogin.resx">
+      <DependentUpon>EtcLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Others\EtcSearch.resx">
+      <DependentUpon>EtcSearch.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Others\EtcSettings.resx">
+      <DependentUpon>EtcSettings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Others\EtcSplash.resx">
+      <DependentUpon>EtcSplash.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Others\EtcUsers.resx">
+      <DependentUpon>EtcUsers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Post\PostCC.resx">
+      <DependentUpon>PostCC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Post\PostPO.resx">
+      <DependentUpon>PostPO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Post\PostPR.resx">
+      <DependentUpon>PostPR.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Post\PostSO.resx">
+      <DependentUpon>PostSO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Post\PostSP.resx">
+      <DependentUpon>PostSP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Post\PostSR.resx">
+      <DependentUpon>PostSR.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\RptPurchaseMn.resx">
+      <DependentUpon>RptPurchaseMn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\RptSalesMn.resx">
+      <DependentUpon>RptSalesMn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\RptSOA.resx">
+      <DependentUpon>RptSOA.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\RptStockMn.resx">
+      <DependentUpon>RptStockMn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\RptStockMv.resx">
+      <DependentUpon>RptStockMv.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\RptSupplierPy.resx">
+      <DependentUpon>RptSupplierPy.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Reports\RptTransactions.resx">
+      <DependentUpon>RptTransactions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transaction\SelectCC.resx">
+      <DependentUpon>SelectCC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transaction\SelectSP.resx">
+      <DependentUpon>SelectSP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transaction\TransCC.resx">
+      <DependentUpon>TransCC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transaction\TransPO.resx">
+      <DependentUpon>TransPO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transaction\TransPR.resx">
+      <DependentUpon>TransPR.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transaction\TransSO.resx">
+      <DependentUpon>TransSO.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transaction\TransSP.resx">
+      <DependentUpon>TransSP.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Transaction\TransSR.resx">
+      <DependentUpon>TransSR.vb</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Model\EntityManager.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntityManager1.Designer.vb</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\EntityManager.edmx.diagram">
+      <DependentUpon>EntityManager.edmx</DependentUpon>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_about.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\_user2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bgms.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\briefcase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\browser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cabinet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkbox-checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark-circle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\construct-512.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gnjb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gradient.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grdt.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\left_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\light_bulb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plusx.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\post.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\post1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\post-b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\print1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pushpin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\q.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\q1.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reports.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\right_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveandadd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\saveandadd1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\small-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\square_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\square_add_r.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\suitcase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\transaction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\truck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\EntityManager.cs" />
+    <Content Include="Model\EntityManager.edmx.sql" />
+    <Content Include="Model\EntityManager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>EntityManager1.vb</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
