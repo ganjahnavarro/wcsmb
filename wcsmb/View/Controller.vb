@@ -75,13 +75,11 @@ Public Class Controller
         panels.Clear()
         panels.Add(filesPanel)
         panels.Add(transactionPanel)
-        panels.Add(postPanel)
         panels.Add(reportsPanel)
         panels.Add(activitiesPanel)
         panels.Add(settingsPanel)
         panels.Add(usersPanel)
         panels.Add(logoutPanel)
-        panels.Add(aboutPanel)
     End Sub
 
     Private Sub initRecentActivities()
@@ -181,14 +179,6 @@ Public Class Controller
         panelHoverOut(usersPanel)
     End Sub
 
-    Private Sub aboutPanel_MouseEnter(sender As Object, e As EventArgs) Handles aboutPanel.MouseEnter, lblAbout.MouseEnter, imgAbout.MouseEnter
-        panelHoverIn(aboutPanel)
-    End Sub
-
-    Private Sub aboutPanel_MouseLeave(sender As Object, e As EventArgs) Handles aboutPanel.MouseLeave
-        panelHoverOut(aboutPanel)
-    End Sub
-
     Private Sub logoutPanel_MouseEnter(sender As Object, e As EventArgs) Handles logoutPanel.MouseEnter, lblLogout.MouseEnter, imgLogout.MouseEnter
         panelHoverIn(logoutPanel)
     End Sub
@@ -211,14 +201,6 @@ Public Class Controller
 
     Private Sub transHoverOut(sender As Object, e As EventArgs) Handles transactionPanel.MouseLeave
         panelHoverOut(transactionPanel)
-    End Sub
-
-    Private Sub postHoverIn(sender As Object, e As EventArgs) Handles postPanel.MouseEnter, lblPCC.MouseEnter, lblPPO.MouseEnter, lblPPR.MouseEnter, lblPSO.MouseEnter, lblPSP.MouseEnter, lblPSR.MouseEnter, imgPost.MouseEnter
-        panelHoverIn(postPanel)
-    End Sub
-
-    Private Sub postHoverOut(sender As Object, e As EventArgs) Handles postPanel.MouseLeave
-        panelHoverOut(postPanel)
     End Sub
 
     Private Sub reportsHoverIn(sender As Object, e As EventArgs) Handles reportsPanel.MouseEnter, lblRPMN.MouseEnter, lblRS.MouseEnter, lblRSMN.MouseEnter, lblRSMV.MouseEnter, lblRSOA.MouseEnter, lblRSP.MouseEnter, lblRTL.MouseEnter, imgReport.MouseEnter
@@ -308,37 +290,37 @@ Public Class Controller
         Util.notifyDisplay(False)
     End Sub
 
-    Private Sub Label11_Click(sender As Object, e As EventArgs) Handles lblPPO.Click
+    Private Sub Label11_Click(sender As Object, e As EventArgs)
         currentForm = PostPO.Name
         PostPO.ShowDialog()
         Util.notifyDisplay(False)
     End Sub
 
-    Private Sub Label10_Click(sender As Object, e As EventArgs) Handles lblPPR.Click
+    Private Sub Label10_Click(sender As Object, e As EventArgs)
         currentForm = PostPR.Name
         PostPR.ShowDialog()
         Util.notifyDisplay(False)
     End Sub
 
-    Private Sub Label12_Click(sender As Object, e As EventArgs) Handles lblPSP.Click
+    Private Sub Label12_Click(sender As Object, e As EventArgs)
         currentForm = PostSP.Name
         PostSP.ShowDialog()
         Util.notifyDisplay(False)
     End Sub
 
-    Private Sub Label8_Click(sender As Object, e As EventArgs) Handles lblPSO.Click
+    Private Sub Label8_Click(sender As Object, e As EventArgs)
         currentForm = PostSO.Name
         PostSO.ShowDialog()
         Util.notifyDisplay(False)
     End Sub
 
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles lblPSR.Click
+    Private Sub Label7_Click(sender As Object, e As EventArgs)
         currentForm = PostSR.Name
         PostSR.ShowDialog()
         Util.notifyDisplay(False)
     End Sub
 
-    Private Sub Label9_Click(sender As Object, e As EventArgs) Handles lblPCC.Click
+    Private Sub Label9_Click(sender As Object, e As EventArgs)
         currentForm = PostCC.Name
         PostCC.ShowDialog()
         Util.notifyDisplay(False)
@@ -398,7 +380,7 @@ Public Class Controller
         Util.notifyDisplay(False)
     End Sub
 
-    Private Sub PictureBox6_Click(sender As Object, e As EventArgs) Handles imgAbout.Click, lblAbout.Click, aboutPanel.Click
+    Private Sub PictureBox6_Click(sender As Object, e As EventArgs)
         currentForm = EtcAbout.Name
         EtcAbout.ShowDialog()
         Util.notifyDisplay(False)
@@ -1189,7 +1171,4 @@ Public Class Controller
         End Select
     End Sub
 
-    Private Sub topPanel_Paint(sender As Object, e As PaintEventArgs) Handles topPanel.Paint
-
-    End Sub
 End Class

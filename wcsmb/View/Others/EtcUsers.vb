@@ -275,7 +275,7 @@
                 .Where(Function(c) c.Username.ToUpper.Equals(tbName.Text.ToUpper)) _
                 .FirstOrDefault
 
-            If Not IsNothing(duplicate) Then
+            If Not IsNothing(duplicate) AndAlso currentObject.Id <> duplicate.Id Then
                 Return "Username already exists."
             End If
         End Using
