@@ -65,7 +65,7 @@
     End Sub
 
     Private Sub setLatestDR()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim nextCounter = context.counters.Where(Function(c) c.Prefix.Equals("DR")).FirstOrDefault
             tbDoc.Text = "DR" & nextCounter.Count
         End Using
@@ -200,7 +200,7 @@
     End Sub
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.salesorders.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             context.salesorderitems.RemoveRange(currentObject.salesorderitems)
@@ -214,7 +214,7 @@
         End Using
 
         'trash
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim trashItemAction = "delete from salesorderitems where salesorderid in " &
                 " (select id from salesorders where documentno = ''" & currentObject.DocumentNo & "''" &
                 " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
@@ -267,7 +267,7 @@
     End Sub
 
     Public Sub loadObject() Implements IControl.loadObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             If Not IsNothing(currentObject) Then
                 currentObject = context.salesorders _
                     .Include("Customer").Include("SalesOrderItems").Include("Agent") _
@@ -294,7 +294,7 @@
             Exit Sub
         End If
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim nextObj As New salesorder
             nextObj = context.salesorders _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) > 0) _
@@ -308,7 +308,7 @@
     End Sub
 
     Public Sub previousObject() Implements IControl.previousObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim prevObj As New salesorder
             prevObj = context.salesorders _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) < 0) _
@@ -322,7 +322,7 @@
     End Sub
 
     Public Sub firstObject() Implements IControl.firstObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim firstObj As New salesorder
             firstObj = context.salesorders _
                 .OrderBy(Function(c) c.DocumentNo).FirstOrDefault
@@ -335,7 +335,7 @@
     End Sub
 
     Public Sub lastObject() Implements IControl.lastObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim lastObj As New salesorder
             lastObj = context.salesorders _
                 .OrderByDescending(Function(c) c.DocumentNo).FirstOrDefault
@@ -365,7 +365,7 @@
     End Sub
 
     Public Sub saveObject() Implements IControl.saveObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = New salesorder
             setObjectValues(context)
             context.salesorders.Add(currentObject)
@@ -427,7 +427,7 @@
     End Function
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.salesorders _
                 .Where(Function(c) c.Id.Equals(currentObject.Id)).FirstOrDefault()
             setObjectValues(context)
@@ -477,7 +477,7 @@
         If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) _
             OrElse Not currentObject.DocumentNo.ToUpper.Equals(tbDoc.Text.ToUpper) Then
 
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 Dim duplicate = context.salesorders _
                     .Where(Function(c) c.DocumentNo.ToUpper.Equals(tbDoc.Text.ToUpper)).FirstOrDefault
 
@@ -710,7 +710,7 @@
                 End If
 
                 prevStockName = stockName
-                Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+                Using context As New DatabaseContext()
                     selectedStock = context.stocks _
                         .Where(Function(c) c.Name.Equals(stockName) And c.Active = True).FirstOrDefault
 
@@ -722,7 +722,7 @@
                         enterGrid("Available", e.RowIndex).Value = Util.getStockAvailableQty(selectedStock.Id)
 
                         'If IsNothing(enterGrid("Price", e.RowIndex).Value) Then
-                        enterGrid("Price", e.RowIndex).Value = selectedStock.Price
+                        enterGrid("Price", e.RowIndex).Value = selectedStock.RetailPrice
                         'End If
 
                         If IsNothing(enterGrid("Qty", e.RowIndex).Value) Then
@@ -933,7 +933,7 @@
         Dim printDoc As New PrintTransaction
 
         If btnPrint.Visible And Not IsNothing(currentObject) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 printDoc.name = currentObject.customer.Name
                 printDoc.agent = currentObject.agent.Name
                 printDoc.address = currentObject.customer.Address
@@ -956,7 +956,7 @@
 
     Private Sub tbCustomer_TextChanged(sender As Object, e As EventArgs) Handles tbCustomer.TextChanged
         If Not String.IsNullOrEmpty(Controller.updateMode) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 Dim cust As customer = context.customers.Where(Function(c) _
                     c.Name.ToUpper.Equals(tbCustomer.Text.ToUpper) And c.Active = True).FirstOrDefault
 

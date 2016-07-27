@@ -24,7 +24,7 @@
     End Sub
 
     Private Sub loadUnpostedSalesOrders()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim unposteds = context.salesorders _
                 .Where(Function(c) c.PostedDate.Equals(Nothing)).ToList()
 
@@ -56,7 +56,7 @@
             ids.Add(itemsGrid("Id", row.Index).Value)
         Next
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim pos = context.salesorders _
                       .Where(Function(c) ids.Contains(c.Id)).ToList()
 
@@ -67,7 +67,7 @@
                 'Posting
                 For Each item In order.salesorderitems
                     item.stock.QtyOnHand = item.stock.QtyOnHand - item.Quantity
-                    item.stock.Price = item.Price
+                    item.stock.RetailPrice = item.Price
                 Next
 
                 Dim action As String = Controller.currentUser.Username & " posted a sales order (" &

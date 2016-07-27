@@ -15,7 +15,8 @@ Partial Public Class stock
     Public Property Name As String
     Public Property Description As String
     Public Property Cost As Nullable(Of Double)
-    Public Property Price As Double
+    Public Property RetailPrice As Double
+    Public Property WholesalePrice As Double
     Public Property QtyOnHand As Integer
     Public Property UnitId As Nullable(Of Integer)
     Public Property CategoryId As Nullable(Of Integer)
@@ -23,12 +24,12 @@ Partial Public Class stock
     Public Property ModifyDate As Nullable(Of Date)
     Public Property Active As Boolean
 
+    Public Overridable Property adjustments As ICollection(Of adjustment) = New HashSet(Of adjustment)
     Public Overridable Property category As category
     Public Overridable Property purchaseorderitems As ICollection(Of purchaseorderitem) = New HashSet(Of purchaseorderitem)
     Public Overridable Property purchasereturnitems As ICollection(Of purchasereturnitem) = New HashSet(Of purchasereturnitem)
     Public Overridable Property salesorderitems As ICollection(Of salesorderitem) = New HashSet(Of salesorderitem)
     Public Overridable Property salesreturnitems As ICollection(Of salesreturnitem) = New HashSet(Of salesreturnitem)
     Public Overridable Property unit As unit
-    Public Overridable Property adjustments As ICollection(Of adjustment) = New HashSet(Of adjustment)
 
 End Class

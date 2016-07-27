@@ -98,7 +98,7 @@
     Private Sub filterGrid()
         itemsGrid.Rows.Clear()
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Select Case Controller.previousForm
                 Case TransPO.Name
                     Dim objx = context.purchaseorders.Include("Supplier") _
@@ -194,7 +194,7 @@
     End Sub
 
     Private Sub selectObject(ByVal docNo As String)
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Select Case Controller.previousForm
                 Case TransPO.Name
                     TransPO.currentObject = context.purchaseorders _

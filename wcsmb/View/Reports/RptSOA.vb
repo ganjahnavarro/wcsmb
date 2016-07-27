@@ -52,7 +52,7 @@
 
         qry += " group by c.name order by c.name, so.date"
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             printDoc.items = context.Database _
                 .SqlQuery(Of _Statement)(qry) _
                 .ToList()
@@ -86,7 +86,7 @@
 
         qry += " order by c.name, so.date"
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             printDoc.items = context.Database _
                 .SqlQuery(Of _StatementDetail)(qry) _
                 .ToList()

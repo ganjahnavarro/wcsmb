@@ -118,7 +118,7 @@
 #End Region
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.users.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
 
@@ -197,7 +197,7 @@
 
     Public Sub saveObject() Implements IControl.saveObject
         Try
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 currentObject = New user
                 setObjectValues()
                 context.users.Add(currentObject)
@@ -242,7 +242,7 @@
     End Function
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.users.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             setObjectValues()
@@ -269,7 +269,7 @@
             Return "Password confirmation is required."
         End If
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             'c.Active = True AndAlso
             Dim duplicate = context.users _
                 .Where(Function(c) c.Username.ToUpper.Equals(tbName.Text.ToUpper)) _
@@ -302,7 +302,7 @@
     End Sub
 
     Private Sub findObjectByName(ByVal name As String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             currentObject = context.users.Where(Function(c) c.Username.Equals(name) And c.Active = True).FirstOrDefault
         End Using
     End Sub
@@ -315,7 +315,7 @@
         If tbSearch.Text = "" Then
             displayList(Util.getUsernames)
         Else
-            Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context = New DatabaseContext()
                 displayList(context.users _
                     .Where(Function(c) _
                         c.Username.ToLower.Contains(tbSearch.Text.ToLower) And

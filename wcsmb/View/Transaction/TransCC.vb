@@ -182,7 +182,7 @@
 #End Region
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.customercollections.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             context.collectioncheckitems.RemoveRange(currentObject.collectioncheckitems)
@@ -197,7 +197,7 @@
         End Using
 
         'trash
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim trashItemActionA = "delete from collectioncheckitems where customercollectionid in " &
                 " (select id from customercollections where documentno = ''" & currentObject.DocumentNo & "''" &
                 " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
@@ -282,7 +282,7 @@
         setReadOnlyColumns()
 
         If enable Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 tbDocNo.Text = getUpdatedDocumentNo(context)
             End Using
 
@@ -300,7 +300,7 @@
             Exit Sub
         End If
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim nextObj As New customercollection
             nextObj = context.customercollections _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) > 0) _
@@ -314,7 +314,7 @@
     End Sub
 
     Public Sub previousObject() Implements IControl.previousObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim prevObj As New customercollection
             prevObj = context.customercollections _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) < 0) _
@@ -328,7 +328,7 @@
     End Sub
 
     Public Sub firstObject() Implements IControl.firstObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim firstObj As New customercollection
             firstObj = context.customercollections _
                 .OrderBy(Function(c) c.DocumentNo).FirstOrDefault
@@ -341,7 +341,7 @@
     End Sub
 
     Public Sub lastObject() Implements IControl.lastObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim lastObj As New customercollection
             lastObj = context.customercollections _
                 .OrderByDescending(Function(c) c.DocumentNo).FirstOrDefault
@@ -386,7 +386,7 @@
     End Function
 
     Public Sub loadObject() Implements IControl.loadObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
 
             If Not IsNothing(currentObject) Then
                 currentObject = context.customercollections _
@@ -488,7 +488,7 @@
     End Sub
 
     Public Sub saveObject() Implements IControl.saveObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = New customercollection
             setObjectValues(context)
 
@@ -682,7 +682,7 @@
     End Sub
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.customercollections _
                 .Where(Function(c) c.Id.Equals(currentObject.Id)).FirstOrDefault()
             setObjectValues(context)
@@ -743,7 +743,7 @@
 
     Private Sub reloadOrders(ByVal name As String)
         orderList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim qry As String = "select s.* from salesorders s, customers c " &
                 "where s.customerId = c.Id and s.postedDate is not null and ucase(c.Name) = '" _
                 & name.ToUpper & "' and c.active = true"
@@ -778,7 +778,7 @@
                 End If
 
                 prevOrderName = orderDocNo
-                Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+                Using context As New DatabaseContext()
                     selectedOrder = context.salesorders _
                         .Where(Function(c) c.DocumentNo.ToUpper.Equals(orderDocNo.ToUpper)) _
                         .FirstOrDefault

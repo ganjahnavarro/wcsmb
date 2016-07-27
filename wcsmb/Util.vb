@@ -282,7 +282,7 @@ Public Class Util
     End Function
 
     Public Shared Function getStockAvailableQty(ByVal stockId As Integer) As Integer
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim onHand As Integer = context.stocks _
                 .Where(Function(c) c.Id = stockId) _
                 .Select(Function(c) c.QtyOnHand).FirstOrDefault
@@ -297,7 +297,7 @@ Public Class Util
     End Function
 
     Public Shared Function getSupplierList() As List(Of supplier)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.suppliers _
                 .Where(Function(c) c.Active = True) _
                 .OrderBy(Function(c) c.Name) _
@@ -306,7 +306,7 @@ Public Class Util
     End Function
 
     Public Shared Function getSuppliersWithOrders() As List(Of supplier)
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Return context.purchaseorders _
                 .OrderBy(Function(c) c.supplier.Name) _
                 .Select(Function(c) c.supplier) _
@@ -315,13 +315,13 @@ Public Class Util
     End Function
 
     Public Shared Function getAgentList() As List(Of agent)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.agents.Where(Function(c) c.Active = True).ToList
         End Using
     End Function
 
     Public Shared Function getCategoryList() As List(Of category)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.categories _
                 .Where(Function(c) c.Active = True) _
                 .OrderBy(Function(c) c.Name) _
@@ -330,7 +330,7 @@ Public Class Util
     End Function
 
     Public Shared Function getUnitList() As List(Of unit)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.units _
                 .Where(Function(c) c.Active = True) _
                 .OrderBy(Function(c) c.Name) _
@@ -339,7 +339,7 @@ Public Class Util
     End Function
 
     Public Shared Function getCustomerList() As List(Of customer)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.customers _
                 .Where(Function(c) c.Active = True) _
                 .OrderBy(Function(c) c.Name) _
@@ -348,7 +348,7 @@ Public Class Util
     End Function
 
     Public Shared Function getCustomersWithOrders() As List(Of customer)
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Return context.salesorders _
                 .OrderBy(Function(c) c.customer.Name) _
                 .Select(Function(c) c.customer) _
@@ -357,7 +357,7 @@ Public Class Util
     End Function
 
     Public Shared Function getInitialStockNames() As List(Of String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.stocks _
                        .Where(Function(c) c.Active = True) _
                        .OrderBy(Function(c) c.Name) _
@@ -367,7 +367,7 @@ Public Class Util
     End Function
 
     Public Shared Function getCategoryNames() As List(Of String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.categories _
                        .Where(Function(c) c.Active = True) _
                        .OrderBy(Function(c) c.Name) _
@@ -377,7 +377,7 @@ Public Class Util
     End Function
 
     Public Shared Function getAgentNames() As List(Of String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.agents _
                        .Where(Function(c) c.Active = True) _
                        .OrderBy(Function(c) c.Name) _
@@ -387,7 +387,7 @@ Public Class Util
     End Function
 
     Public Shared Function getCustomerNames() As List(Of String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.customers _
                        .Where(Function(c) c.Active = True) _
                        .OrderBy(Function(c) c.Name) _
@@ -397,7 +397,7 @@ Public Class Util
     End Function
 
     Public Shared Function getSupplierNames() As List(Of String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.suppliers _
                        .Where(Function(c) c.Active = True) _
                        .OrderBy(Function(c) c.Name) _
@@ -407,7 +407,7 @@ Public Class Util
     End Function
 
     Public Shared Function getUnitNames() As List(Of String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.units _
                        .Where(Function(c) c.Active = True) _
                        .OrderBy(Function(c) c.Name) _
@@ -417,7 +417,7 @@ Public Class Util
     End Function
 
     Public Shared Function getUsernames() As List(Of String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             Return context.users _
                        .Where(Function(c) c.Active = True) _
                        .OrderBy(Function(c) c.Username) _

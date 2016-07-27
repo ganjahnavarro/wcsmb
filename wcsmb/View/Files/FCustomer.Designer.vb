@@ -36,8 +36,6 @@ Partial Class FCustomer
         Me.box = New System.Windows.Forms.ListBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.tbSearch = New System.Windows.Forms.TextBox()
-        Me.tbCommission = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.tbFax = New System.Windows.Forms.TextBox()
         Me.tbLast = New System.Windows.Forms.TextBox()
@@ -53,6 +51,8 @@ Partial Class FCustomer
         Me.notificationPanel = New System.Windows.Forms.Panel()
         Me.notificationClose = New System.Windows.Forms.Label()
         Me.notificationLabel = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cbType = New System.Windows.Forms.ComboBox()
         CType(Me.btnAdd, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnEdit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnDelete, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -219,26 +219,6 @@ Partial Class FCustomer
         Me.tbSearch.Size = New System.Drawing.Size(197, 27)
         Me.tbSearch.TabIndex = 1
         '
-        'tbCommission
-        '
-        Me.tbCommission.Enabled = False
-        Me.tbCommission.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbCommission.Location = New System.Drawing.Point(427, 163)
-        Me.tbCommission.Name = "tbCommission"
-        Me.tbCommission.Size = New System.Drawing.Size(283, 32)
-        Me.tbCommission.TabIndex = 135
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label5.Location = New System.Drawing.Point(320, 166)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(100, 23)
-        Me.Label5.TabIndex = 142
-        Me.Label5.Text = "Commision"
-        '
         'Label6
         '
         Me.Label6.AutoSize = True
@@ -395,15 +375,36 @@ Partial Class FCustomer
         Me.notificationLabel.Text = "Notification"
         Me.notificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Font = New System.Drawing.Font("Tahoma", 14.0!)
+        Me.Label5.Location = New System.Drawing.Point(369, 167)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(51, 23)
+        Me.Label5.TabIndex = 142
+        Me.Label5.Text = "Type"
+        '
+        'cbType
+        '
+        Me.cbType.Font = New System.Drawing.Font("Tahoma", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cbType.FormattingEnabled = True
+        Me.cbType.Items.AddRange(New Object() {"WHOLESALER", "RETAILER"})
+        Me.cbType.Location = New System.Drawing.Point(427, 163)
+        Me.cbType.Name = "cbType"
+        Me.cbType.Size = New System.Drawing.Size(283, 32)
+        Me.cbType.TabIndex = 144
+        '
         'FCustomer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(784, 512)
+        Me.Controls.Add(Me.cbType)
         Me.Controls.Add(Me.notificationPanel)
         Me.Controls.Add(Me.tbAgent)
-        Me.Controls.Add(Me.tbCommission)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.tbFax)
@@ -457,8 +458,6 @@ Partial Class FCustomer
     Friend WithEvents box As System.Windows.Forms.ListBox
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents tbSearch As System.Windows.Forms.TextBox
-    Friend WithEvents tbCommission As System.Windows.Forms.TextBox
-    Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents tbFax As System.Windows.Forms.TextBox
     Friend WithEvents tbLast As System.Windows.Forms.TextBox
@@ -475,5 +474,6 @@ Partial Class FCustomer
     Friend WithEvents notificationClose As System.Windows.Forms.Label
     Friend WithEvents notificationLabel As System.Windows.Forms.Label
     Friend WithEvents btnPrint As System.Windows.Forms.PictureBox
-
+    Friend WithEvents Label5 As Label
+    Friend WithEvents cbType As ComboBox
 End Class

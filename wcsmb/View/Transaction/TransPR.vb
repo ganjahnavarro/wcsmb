@@ -197,7 +197,7 @@
     End Sub
 
     Public Sub loadObject() Implements IControl.loadObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             If Not IsNothing(currentObject) Then
                 currentObject = context.purchasereturns _
                     .Include("PurchaseReturnItems").Include("Supplier") _
@@ -285,7 +285,7 @@
     End Sub
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.purchasereturns.Where(Function(c) _
                     c.Id.Equals(currentObject.Id)).FirstOrDefault
             context.purchasereturnitems.RemoveRange(currentObject.purchasereturnitems)
@@ -299,7 +299,7 @@
         End Using
 
         'trash
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim trashItemAction = "delete from purchasereturnitems where purchasereturnid in " &
                 " (select id from purchasereturns where documentno = ''" & currentObject.DocumentNo & "''" &
                 " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
@@ -334,7 +334,7 @@
     End Sub
 
     Private Function getUpdatedDocumentNo() As String
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim counter = context.counters.Where(Function(c) _
                c.Owner.Equals(Constants.OWNER_NAME_PURCHASE_RETURN)).FirstOrDefault
 
@@ -361,7 +361,7 @@
     End Sub
 
     Public Sub saveObject() Implements IControl.saveObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = New purchasereturn
             setObjectValues(context)
 
@@ -382,7 +382,7 @@
     End Sub
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.purchasereturns _
                     .Where(Function(c) c.Id.Equals(currentObject.Id)).FirstOrDefault()
             setObjectValues(context)
@@ -578,7 +578,7 @@
                 End If
 
                 prevStockName = stockName
-                Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+                Using context As New DatabaseContext()
                     selectedStock = context.stocks _
                         .Where(Function(c) c.Name.Equals(stockName) AndAlso c.Active = True).FirstOrDefault
 
@@ -642,7 +642,7 @@
             Exit Sub
         End If
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim nextObj As New purchasereturn
             nextObj = context.purchasereturns _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) > 0) _
@@ -660,7 +660,7 @@
             Exit Sub
         End If
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim prevObj As New purchasereturn
             prevObj = context.purchasereturns _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) < 0) _
@@ -674,7 +674,7 @@
     End Sub
 
     Public Sub firstObject() Implements IControl.firstObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim firstObj As New purchasereturn
             firstObj = context.purchasereturns _
                 .OrderBy(Function(c) c.DocumentNo).FirstOrDefault
@@ -687,7 +687,7 @@
     End Sub
 
     Public Sub lastObject() Implements IControl.lastObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim lastObj As New purchasereturn
             lastObj = context.purchasereturns _
                 .OrderByDescending(Function(c) c.DocumentNo).FirstOrDefault
@@ -736,7 +736,7 @@
 
     Private Sub reloadStocks(ByVal name As String)
         stockList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
                 "where p.posteddate is not null and c.purchaseorderid = p.id and p.supplierid = s.id " &
                 "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
@@ -754,7 +754,7 @@
 
     Private Sub loadAvailablePrices(ByVal stockId As Integer,
             ByVal name As String, ByVal setFields As Boolean, ByVal rowIndex As Integer)
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
                 "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
                 "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
@@ -783,7 +783,7 @@
 
     Private Sub loadAvailableDiscounts1(ByVal stockId As Integer, ByVal name As String,
             ByVal price As Double, ByVal setFields As Boolean, ByVal rowIndex As Integer)
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
                 "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
                 "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
@@ -816,7 +816,7 @@
     Private Sub loadAvailableDiscounts2(ByVal stockId As Integer, ByVal name As String,
             ByVal price As Double, ByVal disc1 As Double, ByVal setFields As Boolean,
             ByVal rowIndex As Integer)
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
                "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price & "' and c.discount1 = '" & disc1 &
                "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
@@ -851,7 +851,7 @@
     Private Sub loadAvailableDiscounts3(ByVal stockId As Integer, ByVal name As String,
             ByVal price As Double, ByVal disc1 As Double, ByVal disc2 As Double,
             ByVal setFields As Boolean, ByVal rowIndex As Integer)
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
                "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
                "' and c.discount1 = '" & disc1 & "' and c.discount2 = '" & disc2 &
@@ -891,7 +891,7 @@
             ByVal setFields As Boolean, ByVal rowIndex As Integer)
         Dim maxQtyOrdered, maxQtyReturned As Integer
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
                "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
                "' and c.discount1 = '" & disc1 & "' and c.discount2 = '" & disc2 & "' and c.discount3 = '" & disc3 &
@@ -998,7 +998,7 @@
                     stockName = stockName.Trim.ToUpper
 
                     prevStockName = stockName
-                    Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+                    Using context As New DatabaseContext()
                         selectedStock = context.stocks _
                             .Where(Function(c) c.Name.Equals(stockName) _
                                 AndAlso c.Active = True).FirstOrDefault
@@ -1039,7 +1039,7 @@
         Dim printDoc As New PrintTransaction
 
         If btnPrint.Visible And Not IsNothing(currentObject) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 printDoc.name = currentObject.supplier.Name
                 printDoc.address = currentObject.supplier.Address
                 printDoc.docNo = currentObject.DocumentNo

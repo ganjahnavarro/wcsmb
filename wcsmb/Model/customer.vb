@@ -18,6 +18,7 @@ Partial Public Class customer
     Public Property Fax As String
     Public Property Tin As String
     Public Property Commission As Nullable(Of Double)
+    Public Property Type As String
     Public Property AgentId As Nullable(Of Integer)
     Public Property ModifyBy As String
     Public Property ModifyDate As Nullable(Of Date)

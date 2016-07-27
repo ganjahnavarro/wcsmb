@@ -40,7 +40,7 @@
     Private Sub loadObjects()
         itemsGrid.Rows.Clear()
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim hasRecords As Boolean = False
             Dim withBalances = context.salesorders _
                 .Where(Function(c) c.customer.Name.ToUpper.Equals(customerName.ToUpper) _

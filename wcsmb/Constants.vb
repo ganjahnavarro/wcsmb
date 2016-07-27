@@ -38,6 +38,7 @@
     Public Shared CONNECTION_STRING_NAME As String = String.Empty
     Public Shared CONNECTION_STRING_NAME_LOCALHOST As String = "name=localhost"
 
-    Public Shared LAST_SYNC_DATE As DateTime
+    Public Shared CUSTOMER_TYPE_RETAILER As String = "RETAILER"
+    Public Shared CUSTOMER_TYPE_WHOLESALER As String = "WHOLESALER"
 
 End Class

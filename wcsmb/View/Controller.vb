@@ -41,7 +41,7 @@ Public Class Controller
 
     Private Sub tryConnect(ByVal connectionString As String, ByVal message As String,
     ByRef connection As Boolean)
-        Using context As New DatabaseContext(connectionString)
+        Using context As New DatabaseContext()
             currentUser = context.users.FirstOrDefault
             Constants.CONNECTION_STRING_NAME = connectionString
             connection = True
@@ -84,7 +84,7 @@ Public Class Controller
 
     Private Sub initRecentActivities()
         activityList.Items.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             activityList.Items.AddRange(context.activities _
             .OrderByDescending(Function(c) c.Id) _
             .Select(Function(c) c.Description).Take(14).ToArray())
@@ -93,7 +93,7 @@ Public Class Controller
 
     Public Sub initStocks()
         stockList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             stockList.AddRange(context.stocks.Where(Function(c) c.Active = True) _
             .Select(Function(c) c.Name.Trim.ToUpper).ToArray())
         End Using
@@ -101,7 +101,7 @@ Public Class Controller
 
     Public Sub initStocksDictionary()
         stockDictionary.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             stockDictionary = context.stocks.Where(Function(c) c.Active = True) _
             .OrderBy(Function(c) c.Name) _
             .ToDictionary(Function(c) c.Name.ToUpper.Trim, Function(c) c.Description)
@@ -110,7 +110,7 @@ Public Class Controller
 
     Public Sub initAgents()
         agentList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             agentList.AddRange(context.agents.Where(Function(c) c.Active = True) _
                 .Select(Function(c) c.Name.ToUpper).ToArray())
         End Using
@@ -118,7 +118,7 @@ Public Class Controller
 
     Public Sub initCustomers()
         customerList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             customerList.AddRange(context.customers.Where(Function(c) c.Active = True) _
             .Select(Function(c) c.Name.ToUpper).ToArray())
         End Using
@@ -126,7 +126,7 @@ Public Class Controller
 
     Public Sub initCategories()
         categoryList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             categoryList.AddRange(context.categories.Where(Function(c) c.Active = True) _
             .Select(Function(c) c.Name.ToUpper).ToArray())
         End Using
@@ -134,7 +134,7 @@ Public Class Controller
 
     Public Sub initSuppliers()
         supplierList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             supplierList.AddRange(context.suppliers.Where(Function(c) c.Active = True) _
             .Select(Function(c) c.Name.ToUpper).ToArray())
         End Using
@@ -142,7 +142,7 @@ Public Class Controller
 
     Public Sub initUnits()
         unitList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             unitList.AddRange(context.units.Where(Function(c) c.Active = True) _
             .Select(Function(c) c.Name.ToUpper).ToArray())
         End Using
@@ -396,6 +396,12 @@ Public Class Controller
 
     Private Sub imgLogoutClick(sender As Object, e As EventArgs) Handles imgLogout.Click, lblLogout.Click, logoutPanel.Click
         showLogin()
+    End Sub
+
+    Private Sub lblPriceList_Click(sender As Object, e As EventArgs) Handles lblPriceList.Click
+        currentForm = EtcPriceList.Name
+        EtcPriceList.ShowDialog()
+        Util.notifyDisplay(False)
     End Sub
 
 #End Region

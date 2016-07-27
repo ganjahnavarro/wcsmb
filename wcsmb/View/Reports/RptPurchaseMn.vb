@@ -72,7 +72,7 @@
         printDoc.filter = groupBy
         printDoc.report_name = "PURCHASE MONITORING BY " & groupBy.ToUpper
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             printDoc.report_detail = "From " & dateFrom.Value.ToShortDateString & " To " & dateTo.Value.ToShortDateString
 
             Dim sel As String = If(groupBy.ToUpper.Equals("STOCK"),

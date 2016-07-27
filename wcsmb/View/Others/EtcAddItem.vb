@@ -126,12 +126,12 @@
     Private Sub filterGrid()
         itemsGrid.Rows.Clear()
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim stocks = getFilteredStock()
 
             For Each stock In stocks
                 itemsGrid.Rows.Add(stock.Id, stock.Name,
-                    stock.Description, stock.Price, stock.QtyOnHand, stock.Cost)
+                    stock.Description, stock.RetailPrice, stock.QtyOnHand, stock.Cost)
             Next
         End Using
 
@@ -161,7 +161,7 @@
 
         qry += " order by s.name limit 300"
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Return context.stocks.SqlQuery(qry).ToList
         End Using
     End Function
@@ -208,7 +208,7 @@
         Else
             Dim unit As String
 
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 unit = context.stocks.Where(Function(c) _
                     c.Name.ToUpper.Equals(lblStock.Text.ToUpper)) _
                     .Select(Function(c) c.unit.Name).FirstOrDefault

@@ -39,7 +39,7 @@ Partial Class FStock
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.tbLast = New System.Windows.Forms.TextBox()
+        Me.tbRetail = New System.Windows.Forms.TextBox()
         Me.lblUnitName = New System.Windows.Forms.Label()
         Me.tbName = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -54,6 +54,8 @@ Partial Class FStock
         Me.notificationLabel = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.tbAvailable = New System.Windows.Forms.TextBox()
+        Me.tbLast = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
         CType(Me.btnAdd, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnEdit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.btnDelete, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -210,7 +212,7 @@ Partial Class FStock
         '
         Me.tbDescription.Enabled = False
         Me.tbDescription.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbDescription.Location = New System.Drawing.Point(435, 112)
+        Me.tbDescription.Location = New System.Drawing.Point(446, 96)
         Me.tbDescription.Multiline = True
         Me.tbDescription.Name = "tbDescription"
         Me.tbDescription.Size = New System.Drawing.Size(300, 58)
@@ -220,7 +222,7 @@ Partial Class FStock
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label4.Location = New System.Drawing.Point(321, 129)
+        Me.Label4.Location = New System.Drawing.Point(332, 113)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(103, 23)
@@ -231,7 +233,7 @@ Partial Class FStock
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label5.Location = New System.Drawing.Point(692, 232)
+        Me.Label5.Location = New System.Drawing.Point(703, 216)
         Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(43, 23)
@@ -242,28 +244,28 @@ Partial Class FStock
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label6.Location = New System.Drawing.Point(340, 189)
+        Me.Label6.Location = New System.Drawing.Point(351, 173)
         Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(84, 23)
         Me.Label6.TabIndex = 140
         Me.Label6.Text = "Category"
         '
-        'tbLast
+        'tbRetail
         '
-        Me.tbLast.Enabled = False
-        Me.tbLast.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbLast.Location = New System.Drawing.Point(435, 349)
-        Me.tbLast.Name = "tbLast"
-        Me.tbLast.Size = New System.Drawing.Size(300, 32)
-        Me.tbLast.TabIndex = 139
+        Me.tbRetail.Enabled = False
+        Me.tbRetail.Font = New System.Drawing.Font("Tahoma", 15.0!)
+        Me.tbRetail.Location = New System.Drawing.Point(446, 333)
+        Me.tbRetail.Name = "tbRetail"
+        Me.tbRetail.Size = New System.Drawing.Size(300, 32)
+        Me.tbRetail.TabIndex = 139
         '
         'lblUnitName
         '
         Me.lblUnitName.AutoSize = True
         Me.lblUnitName.Font = New System.Drawing.Font("Tahoma", 14.0!)
         Me.lblUnitName.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblUnitName.Location = New System.Drawing.Point(369, 76)
+        Me.lblUnitName.Location = New System.Drawing.Point(380, 60)
         Me.lblUnitName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblUnitName.Name = "lblUnitName"
         Me.lblUnitName.Size = New System.Drawing.Size(55, 23)
@@ -274,7 +276,7 @@ Partial Class FStock
         '
         Me.tbName.Enabled = False
         Me.tbName.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbName.Location = New System.Drawing.Point(435, 74)
+        Me.tbName.Location = New System.Drawing.Point(446, 58)
         Me.tbName.Name = "tbName"
         Me.tbName.Size = New System.Drawing.Size(300, 32)
         Me.tbName.TabIndex = 133
@@ -283,18 +285,18 @@ Partial Class FStock
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label3.Location = New System.Drawing.Point(313, 353)
+        Me.Label3.Location = New System.Drawing.Point(333, 337)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(111, 23)
+        Me.Label3.Size = New System.Drawing.Size(102, 23)
         Me.Label3.TabIndex = 132
-        Me.Label3.Text = "Selling Price"
+        Me.Label3.Text = "Retail Price"
         '
         'tbCost
         '
         Me.tbCost.Enabled = False
         Me.tbCost.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbCost.Location = New System.Drawing.Point(435, 309)
+        Me.tbCost.Location = New System.Drawing.Point(446, 293)
         Me.tbCost.Name = "tbCost"
         Me.tbCost.Size = New System.Drawing.Size(300, 32)
         Me.tbCost.TabIndex = 138
@@ -303,7 +305,7 @@ Partial Class FStock
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label2.Location = New System.Drawing.Point(379, 313)
+        Me.Label2.Location = New System.Drawing.Point(390, 297)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(45, 23)
@@ -314,7 +316,7 @@ Partial Class FStock
         '
         Me.tbOnHand.Enabled = False
         Me.tbOnHand.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbOnHand.Location = New System.Drawing.Point(435, 228)
+        Me.tbOnHand.Location = New System.Drawing.Point(446, 212)
         Me.tbOnHand.Name = "tbOnHand"
         Me.tbOnHand.Size = New System.Drawing.Size(175, 32)
         Me.tbOnHand.TabIndex = 136
@@ -323,7 +325,7 @@ Partial Class FStock
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label1.Location = New System.Drawing.Point(339, 232)
+        Me.Label1.Location = New System.Drawing.Point(350, 216)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(85, 23)
@@ -334,7 +336,7 @@ Partial Class FStock
         '
         Me.tbCategory.Enabled = False
         Me.tbCategory.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbCategory.Location = New System.Drawing.Point(435, 185)
+        Me.tbCategory.Location = New System.Drawing.Point(446, 169)
         Me.tbCategory.Name = "tbCategory"
         Me.tbCategory.Size = New System.Drawing.Size(300, 32)
         Me.tbCategory.TabIndex = 135
@@ -343,7 +345,7 @@ Partial Class FStock
         '
         Me.tbUnit.Enabled = False
         Me.tbUnit.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbUnit.Location = New System.Drawing.Point(629, 266)
+        Me.tbUnit.Location = New System.Drawing.Point(640, 250)
         Me.tbUnit.Name = "tbUnit"
         Me.tbUnit.Size = New System.Drawing.Size(106, 32)
         Me.tbUnit.TabIndex = 137
@@ -387,7 +389,7 @@ Partial Class FStock
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label7.Location = New System.Drawing.Point(341, 272)
+        Me.Label7.Location = New System.Drawing.Point(352, 256)
         Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(83, 23)
@@ -398,10 +400,30 @@ Partial Class FStock
         '
         Me.tbAvailable.Enabled = False
         Me.tbAvailable.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbAvailable.Location = New System.Drawing.Point(435, 268)
+        Me.tbAvailable.Location = New System.Drawing.Point(446, 252)
         Me.tbAvailable.Name = "tbAvailable"
         Me.tbAvailable.Size = New System.Drawing.Size(175, 32)
         Me.tbAvailable.TabIndex = 145
+        '
+        'tbLast
+        '
+        Me.tbLast.Enabled = False
+        Me.tbLast.Font = New System.Drawing.Font("Tahoma", 15.0!)
+        Me.tbLast.Location = New System.Drawing.Point(446, 373)
+        Me.tbLast.Name = "tbLast"
+        Me.tbLast.Size = New System.Drawing.Size(300, 32)
+        Me.tbLast.TabIndex = 146
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Tahoma", 14.0!)
+        Me.Label8.Location = New System.Drawing.Point(295, 377)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(140, 23)
+        Me.Label8.TabIndex = 147
+        Me.Label8.Text = "Wholesale Price"
         '
         'FStock
         '
@@ -409,6 +431,8 @@ Partial Class FStock
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(784, 512)
+        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.tbLast)
         Me.Controls.Add(Me.tbAvailable)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.notificationPanel)
@@ -418,7 +442,7 @@ Partial Class FStock
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.tbLast)
+        Me.Controls.Add(Me.tbRetail)
         Me.Controls.Add(Me.lblUnitName)
         Me.Controls.Add(Me.tbName)
         Me.Controls.Add(Me.Label3)
@@ -470,7 +494,7 @@ Partial Class FStock
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents tbLast As System.Windows.Forms.TextBox
+    Friend WithEvents tbRetail As System.Windows.Forms.TextBox
     Friend WithEvents lblUnitName As System.Windows.Forms.Label
     Friend WithEvents tbName As System.Windows.Forms.TextBox
     Friend WithEvents Label3 As System.Windows.Forms.Label
@@ -485,4 +509,6 @@ Partial Class FStock
     Friend WithEvents notificationLabel As System.Windows.Forms.Label
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents tbAvailable As System.Windows.Forms.TextBox
+    Friend WithEvents tbLast As TextBox
+    Friend WithEvents Label8 As Label
 End Class

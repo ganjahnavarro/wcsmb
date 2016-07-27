@@ -55,6 +55,7 @@ Partial Class Controller
         Me.imgTrans = New System.Windows.Forms.PictureBox()
         Me.lblTSP = New System.Windows.Forms.Label()
         Me.filesPanel = New System.Windows.Forms.Panel()
+        Me.lblPriceList = New System.Windows.Forms.Label()
         Me.lblFAgent = New System.Windows.Forms.Label()
         Me.lblFCust = New System.Windows.Forms.Label()
         Me.imgFiles = New System.Windows.Forms.PictureBox()
@@ -481,6 +482,7 @@ Partial Class Controller
         '
         Me.filesPanel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.filesPanel.BackColor = System.Drawing.Color.Gainsboro
+        Me.filesPanel.Controls.Add(Me.lblPriceList)
         Me.filesPanel.Controls.Add(Me.lblFAgent)
         Me.filesPanel.Controls.Add(Me.lblFCust)
         Me.filesPanel.Controls.Add(Me.imgFiles)
@@ -493,6 +495,19 @@ Partial Class Controller
         Me.filesPanel.Name = "filesPanel"
         Me.filesPanel.Size = New System.Drawing.Size(615, 180)
         Me.filesPanel.TabIndex = 6
+        '
+        'lblPriceList
+        '
+        Me.lblPriceList.AutoSize = True
+        Me.lblPriceList.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lblPriceList.Font = New System.Drawing.Font("Tahoma", 15.75!)
+        Me.lblPriceList.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
+        Me.lblPriceList.Location = New System.Drawing.Point(348, 95)
+        Me.lblPriceList.Name = "lblPriceList"
+        Me.lblPriceList.Size = New System.Drawing.Size(96, 25)
+        Me.lblPriceList.TabIndex = 15
+        Me.lblPriceList.Text = "Price List"
+        Me.lblPriceList.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblFAgent
         '
@@ -726,4 +741,5 @@ Partial Class Controller
     Friend WithEvents hotkeyListener As System.Windows.Forms.Timer
     Friend WithEvents notificationTimer As System.Windows.Forms.Timer
     Friend WithEvents pollTimer As System.Windows.Forms.Timer
+    Friend WithEvents lblPriceList As Label
 End Class

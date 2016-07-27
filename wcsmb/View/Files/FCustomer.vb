@@ -138,7 +138,7 @@
 #End Region
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.customers.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             currentObject.Active = False
@@ -151,7 +151,7 @@
         End Using
 
         'trash
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim trashAction = "update customers set active = false where name = ''" & currentObject.Name & "''" &
                 " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
             context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date, '" & trashAction & "')")
@@ -168,7 +168,7 @@
         tbAddress.Enabled = enable
         tbFax.Enabled = enable
         tbLast.Enabled = enable
-        tbCommission.Enabled = enable
+        cbType.Enabled = enable
         tbAgent.Enabled = enable
 
         If enable Then
@@ -178,7 +178,7 @@
 
     Public Sub loadObject() Implements IControl.loadObject
         If Not IsNothing(currentObject) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 currentObject = context.customers _
                     .Include("Agent") _
                     .Where(Function(c) c.Id = currentObject.Id) _
@@ -186,7 +186,7 @@
             End Using
             loadCurrentObject()
         Else
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 currentObject = context.customers _
                     .Include("Agent") _
                     .Where(Function(c) c.Active = True) _
@@ -210,7 +210,7 @@
         tbAddress.Text = currentObject.Address
         tbFax.Text = currentObject.Fax
         tbLast.Text = currentObject.Tin
-        tbCommission.Text = currentObject.Commission
+        cbType.Text = currentObject.Type
 
         If Not IsNothing(currentObject.agent) Then
             tbAgent.Text = currentObject.agent.Name
@@ -235,11 +235,11 @@
         tbFax.Text = String.Empty
         tbContact.Text = String.Empty
         tbLast.Text = String.Empty
-        tbCommission.Text = String.Empty
+        cbType.Text = Constants.CUSTOMER_TYPE_RETAILER
     End Sub
 
     Public Sub saveObject() Implements IControl.saveObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = New customer
             setObjectValues(context)
             context.customers.Add(currentObject)
@@ -265,7 +265,7 @@
         currentObject.Fax = tbFax.Text
         currentObject.ModifyDate = DateTime.Now
         currentObject.ModifyBy = Controller.currentUser.Username
-        currentObject.Commission = tbCommission.Text
+        currentObject.Type = cbType.Text
         currentObject.Active = True
 
         If String.IsNullOrWhiteSpace(tbAgent.Text) Then
@@ -282,7 +282,7 @@
     End Function
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.customers.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             setObjectValues(context)
@@ -308,7 +308,7 @@
 
         If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) _
             OrElse Not currentObject.Name.ToUpper.Equals(tbName.Text.ToUpper) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 'c.Active = True AndAlso 
                 Dim duplicate = context.customers _
                     .Where(Function(c) c.Name.ToUpper.Equals(tbName.Text.ToUpper)) _
@@ -338,7 +338,7 @@
     End Sub
 
     Private Sub findObjectByName(ByVal name As String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             currentObject = (From customer In context.customers.Include("Agent")
                              Select customer).Where(Function(c) c.Name.Equals(name) And c.Active = True).FirstOrDefault()
         End Using
@@ -358,7 +358,7 @@
         If tbSearch.Text = String.Empty Then
             displayList(Util.getCustomerNames)
         Else
-            Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context = New DatabaseContext()
                 displayList(context.customers _
                     .Where(Function(c) _
                         c.Name.ToLower.Contains(tbSearch.Text.ToLower) And
@@ -383,7 +383,7 @@
     Public Sub printObject() Implements IControl.printObject
         Dim customersDoc As New PrintCustomers
         If btnPrint.Visible Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 customersDoc.customers = context.customers _
                     .Include("Agent") _
                     .OrderBy(Function(c) c.Name).ToList()

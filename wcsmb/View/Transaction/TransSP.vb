@@ -225,7 +225,7 @@
     End Sub
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.supplierpayments.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             context.paymentcheckitems.RemoveRange(currentObject.paymentcheckitems)
@@ -240,7 +240,7 @@
         End Using
 
         'trash
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim trashItemActionA = "delete from paymentcheckitems where supplierpaymentid in " &
                 " (select id from supplierpayments where documentno = ''" & currentObject.DocumentNo & "''" &
                 " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
@@ -336,7 +336,7 @@
     End Sub
 
     Private Function getUpdatedDocumentNo() As String
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim counter = context.counters.Where(Function(c) _
                c.Owner.Equals(Constants.OWNER_NAME_SUPPLIER_PAYMENT)).FirstOrDefault
 
@@ -353,7 +353,7 @@
             Exit Sub
         End If
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim nextObj As New supplierpayment
             nextObj = context.supplierpayments _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) > 0) _
@@ -367,7 +367,7 @@
     End Sub
 
     Public Sub previousObject() Implements IControl.previousObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim prevObj As New supplierpayment
             prevObj = context.supplierpayments _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) < 0) _
@@ -381,7 +381,7 @@
     End Sub
 
     Public Sub firstObject() Implements IControl.firstObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim firstObj As New supplierpayment
             firstObj = context.supplierpayments _
                 .OrderBy(Function(c) c.DocumentNo).FirstOrDefault
@@ -394,7 +394,7 @@
     End Sub
 
     Public Sub lastObject() Implements IControl.lastObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim lastObj As New supplierpayment
             lastObj = context.supplierpayments _
                 .OrderByDescending(Function(c) c.DocumentNo).FirstOrDefault
@@ -439,7 +439,7 @@
     End Function
 
     Public Sub loadObject() Implements IControl.loadObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
 
             If Not IsNothing(currentObject) Then
                 currentObject = context.supplierpayments _
@@ -541,7 +541,7 @@
     End Sub
 
     Public Sub saveObject() Implements IControl.saveObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = New supplierpayment
             setObjectValues(context)
 
@@ -725,7 +725,7 @@
     End Sub
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.supplierpayments _
                 .Where(Function(c) c.Id.Equals(currentObject.Id)).FirstOrDefault()
             setObjectValues(context)
@@ -741,7 +741,7 @@
 
     Private Sub reloadOrders(ByVal name As String)
         orderList.Clear()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorders c, suppliers s " &
                 "where c.supplierId = s.Id and c.posteddate is not null and ucase(s.Name) = '" _
                 & name.ToUpper & "' and s.active = true"
@@ -776,7 +776,7 @@
                 End If
 
                 prevOrderName = orderDocNo
-                Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+                Using context As New DatabaseContext()
                     selectedOrder = context.purchaseorders _
                         .Where(Function(c) c.DocumentNo.ToUpper.Equals(orderDocNo.ToUpper)) _
                         .FirstOrDefault

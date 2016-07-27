@@ -128,7 +128,7 @@
 #End Region
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.agents.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             currentObject.Active = False
@@ -140,7 +140,7 @@
         End Using
 
         'trash
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim trashAction = "update agents set active = false where name = ''" & currentObject.Name & "''" &
                 " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
             context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date, '" & trashAction & "')")
@@ -169,7 +169,7 @@
         If Not IsNothing(currentObject) Then
             loadCurrentObject()
         Else
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 currentObject = context.agents _
                     .Where(Function(c) c.Active = True) _
                     .OrderBy(Function(c) c.Name) _
@@ -205,7 +205,7 @@
     End Sub
 
     Public Sub saveObject() Implements IControl.saveObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = New agent
 
             setObjectValues()
@@ -235,7 +235,7 @@
     End Sub
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.agents.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             setObjectValues()
@@ -256,7 +256,7 @@
 
         If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) _
             OrElse Not currentObject.Name.ToUpper.Equals(tbName.Text.ToUpper) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 'c.Active = True AndAlso
                 Dim duplicate = context.agents _
                     .Where(Function(c) c.Name.ToUpper.Equals(tbName.Text.ToUpper)) _
@@ -286,7 +286,7 @@
     End Sub
 
     Private Sub findObjectByName(ByVal name As String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             currentObject = context.agents.Where(Function(c) c.Name.Equals(name) And c.Active = True).FirstOrDefault
         End Using
     End Sub
@@ -315,7 +315,7 @@
         If tbSearch.Text = String.Empty Then
             displayList(Util.getAgentNames)
         Else
-            Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context = New DatabaseContext()
                 displayList(context.agents _
                     .Where(Function(c) _
                         c.Name.ToLower.Contains(tbSearch.Text.ToLower) And

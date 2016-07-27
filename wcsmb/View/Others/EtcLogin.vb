@@ -24,7 +24,7 @@
     End Function
 
     Private Sub loadUsers()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             users = context.users.Where(Function(c) c.Active = True).ToList()
         End Using
     End Sub

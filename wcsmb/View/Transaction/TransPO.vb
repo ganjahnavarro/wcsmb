@@ -175,7 +175,7 @@
     End Function
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.purchaseorders.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             context.purchaseorderitems.RemoveRange(currentObject.purchaseorderitems)
@@ -189,7 +189,7 @@
         End Using
 
         'trash
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim trashItemAction = "delete from purchaseorderitems where purchaseorderid in " &
                 " (select id from purchaseorders where documentno = ''" & currentObject.DocumentNo & "''" &
                 " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
@@ -241,7 +241,7 @@
     End Sub
 
     Public Sub loadObject() Implements IControl.loadObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             If Not IsNothing(currentObject) Then
                 currentObject = context.purchaseorders _
                     .Include("PurchaseOrderItems").Include("Supplier") _
@@ -268,7 +268,7 @@
             Exit Sub
         End If
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim nextObj As New purchaseorder
             nextObj = context.purchaseorders _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) > 0) _
@@ -286,7 +286,7 @@
             Exit Sub
         End If
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim prevObj As New purchaseorder
             prevObj = context.purchaseorders _
                 .Where(Function(c) c.DocumentNo.CompareTo(currentObject.DocumentNo) < 0) _
@@ -300,7 +300,7 @@
     End Sub
 
     Public Sub firstObject() Implements IControl.firstObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim firstObj As New purchaseorder
             firstObj = context.purchaseorders _
                 .OrderBy(Function(c) c.DocumentNo).FirstOrDefault
@@ -313,7 +313,7 @@
     End Sub
 
     Public Sub lastObject() Implements IControl.lastObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim lastObj As New purchaseorder
             lastObj = context.purchaseorders _
                 .OrderByDescending(Function(c) c.DocumentNo).FirstOrDefault
@@ -344,7 +344,7 @@
     End Sub
 
     Public Sub saveObject() Implements IControl.saveObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = New purchaseorder
             setObjectValues(context)
             context.purchaseorders.Add(currentObject)
@@ -402,7 +402,7 @@
     End Function
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.purchaseorders _
                     .Where(Function(c) c.Id.Equals(currentObject.Id)).FirstOrDefault()
             setObjectValues(context)
@@ -432,7 +432,7 @@
         If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) _
             OrElse Not currentObject.DocumentNo.ToUpper.Equals(tbDocNo.Text.ToUpper) Then
             Dim duplicateDocNo As String
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 duplicateDocNo = context.purchaseorders _
                     .Where(Function(c) c.DocumentNo.ToUpper.Equals(tbDocNo.Text.ToUpper)) _
                     .Select(Function(c) c.DocumentNo).FirstOrDefault
@@ -599,7 +599,7 @@
 
                 prevStockName = stockName
 
-                Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+                Using context As New DatabaseContext()
                     selectedStock = context.stocks _
                         .Where(Function(c) c.Name.Equals(stockName) And c.Active = True).FirstOrDefault
 
@@ -610,7 +610,7 @@
                         'TODO Check
                         'If IsNothing(enterGrid("Price", e.RowIndex).Value) Then
                         enterGrid("Price", e.RowIndex).Value =
-                            If(selectedStock.Cost = 0, selectedStock.Price, selectedStock.Cost)
+                            If(selectedStock.Cost = 0, selectedStock.RetailPrice, selectedStock.Cost)
                         'End If
 
                         If IsNothing(enterGrid("Qty", e.RowIndex).Value) Then
@@ -906,7 +906,7 @@
 
     Public Sub printObject() Implements IControl.printObject
         If btnPrint.Visible And Not IsNothing(currentObject) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 printDoc.name = currentObject.supplier.Name
                 printDoc.address = currentObject.supplier.Address
                 printDoc.docNo = currentObject.DocumentNo

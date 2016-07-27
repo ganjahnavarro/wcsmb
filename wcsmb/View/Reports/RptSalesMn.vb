@@ -122,7 +122,7 @@
         printDoc.filter = groupBy
         printDoc.report_name = "SALES MONITORING BY " & groupBy.ToUpper
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             printDoc.report_detail = "From " & dateFrom.Value.ToShortDateString & " To " & dateTo.Value.ToShortDateString
 
             Dim sel As String = If(groupBy.ToUpper.Equals("STOCK"),
@@ -173,7 +173,7 @@
         Dim printDoc As New PrintMonitorByAgent
         Dim sales As New List(Of salesorder)
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             If Not String.IsNullOrWhiteSpace(tbAgent.Text) Then
                 printDoc.report_detail = "From " & dateFrom.Value.ToShortDateString & " To " & dateTo.Value.ToShortDateString & ". Agent: " & tbAgent.Text.ToUpper
                 sales = context.salesorders _

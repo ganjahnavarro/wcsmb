@@ -14,8 +14,8 @@ Imports System.Data.Entity.Infrastructure
 Partial Public Class DatabaseContext
     Inherits DbContext
 
-    Public Sub New(ByVal connectionStringName As String)
-        MyBase.New(connectionStringName)
+    Public Sub New()
+        MyBase.New("name=DatabaseContext")
     End Sub
 
     Protected Overrides Sub OnModelCreating(modelBuilder As DbModelBuilder)
@@ -23,6 +23,7 @@ Partial Public Class DatabaseContext
     End Sub
 
     Public Property activities() As DbSet(Of activity)
+    Public Property adjustments() As DbSet(Of adjustment)
     Public Property agents() As DbSet(Of agent)
     Public Property categories() As DbSet(Of category)
     Public Property collectioncheckitems() As DbSet(Of collectioncheckitem)
@@ -45,6 +46,5 @@ Partial Public Class DatabaseContext
     Public Property suppliers() As DbSet(Of supplier)
     Public Property units() As DbSet(Of unit)
     Public Property users() As DbSet(Of user)
-    Public Property adjustments() As DbSet(Of adjustment)
 
 End Class

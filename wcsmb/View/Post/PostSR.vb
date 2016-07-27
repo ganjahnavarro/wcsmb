@@ -25,7 +25,7 @@
     End Sub
 
     Private Sub loadUnposteds()
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim unposteds = context.salesreturns _
                 .Where(Function(c) c.PostedDate.Equals(Nothing)).ToList()
 
@@ -57,7 +57,7 @@
             ids.Add(itemsGrid("Id", row.Index).Value)
         Next
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim returns = context.salesreturns _
                       .Where(Function(c) ids.Contains(c.Id)).ToList()
 

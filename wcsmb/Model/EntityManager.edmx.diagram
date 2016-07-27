@@ -4,57 +4,57 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d3bcd96a29a64590ae75c6506fe2e73d" Name="Diagram1" ZoomLevel="25">
-        <EntityTypeShape EntityType="bgmsModel.activity" Width="1.5" PointX="8.75" PointY="2.875" />
-        <EntityTypeShape EntityType="bgmsModel.agent" Width="1.5" PointX="11.75" PointY="4.375" />
-        <EntityTypeShape EntityType="bgmsModel.category" Width="1.5" PointX="14.75" PointY="5.875" />
-        <EntityTypeShape EntityType="bgmsModel.collectioncheckitem" Width="1.5" PointX="17.75" PointY="7.375" />
-        <EntityTypeShape EntityType="bgmsModel.collectionorderitem" Width="1.5" PointX="20.75" PointY="8.875" />
-        <EntityTypeShape EntityType="bgmsModel.counter" Width="1.5" PointX="3.125" PointY="7" />
-        <EntityTypeShape EntityType="bgmsModel.customercollection" Width="1.5" PointX="5.625" PointY="8.5" />
-        <EntityTypeShape EntityType="bgmsModel.customer" Width="1.5" PointX="8.625" PointY="10" />
-        <EntityTypeShape EntityType="bgmsModel.paymentcheckitem" Width="1.5" PointX="11.625" PointY="11.5" />
-        <EntityTypeShape EntityType="bgmsModel.paymentorderitem" Width="1.5" PointX="15.125" PointY="11.375" />
-        <EntityTypeShape EntityType="bgmsModel.purchaseorderitem" Width="1.5" PointX="18.125" PointY="12.875" />
-        <EntityTypeShape EntityType="bgmsModel.purchaseorder" Width="1.5" PointX="22.75" PointY="13.5" />
-        <EntityTypeShape EntityType="bgmsModel.purchasereturnitem" Width="1.5" PointX="3.375" PointY="12.875" />
-        <EntityTypeShape EntityType="bgmsModel.purchasereturn" Width="1.5" PointX="6.375" PointY="14.5" />
-        <EntityTypeShape EntityType="bgmsModel.salesorderitem" Width="1.5" PointX="9.375" PointY="16" />
-        <EntityTypeShape EntityType="bgmsModel.salesorder" Width="1.5" PointX="12.375" PointY="17.5" />
-        <EntityTypeShape EntityType="bgmsModel.salesreturnitem" Width="1.5" PointX="15.375" PointY="19" />
-        <EntityTypeShape EntityType="bgmsModel.salesreturn" Width="1.5" PointX="18.375" PointY="20.5" />
-        <EntityTypeShape EntityType="bgmsModel.stock" Width="1.5" PointX="21.375" PointY="22" />
-        <EntityTypeShape EntityType="bgmsModel.supplierpayment" Width="1.5" PointX="3.625" PointY="19.125" />
-        <EntityTypeShape EntityType="bgmsModel.supplier" Width="1.5" PointX="6.125" PointY="20.625" />
-        <EntityTypeShape EntityType="bgmsModel.unit" Width="1.5" PointX="9.125" PointY="22.125" />
-        <EntityTypeShape EntityType="bgmsModel.user" Width="1.5" PointX="12.125" PointY="23.625" />
-        <AssociationConnector Association="bgmsModel.FK_CustomerAgent" />
-        <AssociationConnector Association="bgmsModel.FK_salesorderagent" />
-        <AssociationConnector Association="bgmsModel.FK_salesreturnagent" />
-        <AssociationConnector Association="bgmsModel.FK_StockCategory" />
-        <AssociationConnector Association="bgmsModel.FK_collectioncheckcustomercollection" />
-        <AssociationConnector Association="bgmsModel.FK_collectionsalesordercustomercollection" />
-        <AssociationConnector Association="bgmsModel.FK_collectionsalesordersalesorder" />
-        <AssociationConnector Association="bgmsModel.FK_customercollectioncustomer" />
-        <AssociationConnector Association="bgmsModel.FK_salesordercustomer" />
-        <AssociationConnector Association="bgmsModel.FK_salesreturncustomer" />
-        <AssociationConnector Association="bgmsModel.FK_supplierpaymentpaymentcheckitem" />
-        <AssociationConnector Association="bgmsModel.FK_paymentorderitempurchaseorder" />
-        <AssociationConnector Association="bgmsModel.FK_paymentorderitemsupplierpayment" />
-        <AssociationConnector Association="bgmsModel.FK_PurchaseOrderDetails1" />
-        <AssociationConnector Association="bgmsModel.FK_PurchaseOrderItemStock1" />
-        <AssociationConnector Association="bgmsModel.FK_PurchaseOrderSupplier" />
-        <AssociationConnector Association="bgmsModel.FK_purchasereturnitempurchasereturn" />
-        <AssociationConnector Association="bgmsModel.FK_purchasereturnitemstock" />
-        <AssociationConnector Association="bgmsModel.FK_purchasereturnsupplier" />
-        <AssociationConnector Association="bgmsModel.FK_salesorderitemstock" />
-        <AssociationConnector Association="bgmsModel.FK_salesordersalesorderitem" />
-        <AssociationConnector Association="bgmsModel.FK_salesreturnitemsalesreturn" />
-        <AssociationConnector Association="bgmsModel.FK_salesreturnitemstock" />
-        <AssociationConnector Association="bgmsModel.FK_StockUnit" />
-        <AssociationConnector Association="bgmsModel.FK_supplierpaymentsupplier" />
-        <EntityTypeShape EntityType="bgmsModel.adjustment" Width="1.5" PointX="10.596914000155831" PointY="7.30236630481778" />
-        <AssociationConnector Association="bgmsModel.FK_adjustmentsstock" />
+      <Diagram DiagramId="a53f3e07cefe4bd09b2d624a87f8c8f8" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.activity" Width="1.5" PointX="8.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.adjustment" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.agent" Width="1.5" PointX="3.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.category" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.collectioncheckitem" Width="1.5" PointX="8.25" PointY="26.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.collectionorderitem" Width="1.5" PointX="8.25" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.counter" Width="1.5" PointX="10.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.customercollection" Width="1.5" PointX="6" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.customer" Width="1.5" PointX="3.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.paymentcheckitem" Width="1.5" PointX="5.25" PointY="34.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.paymentorderitem" Width="1.5" PointX="8.25" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.purchaseorderitem" Width="1.5" PointX="8.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.purchaseorder" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.purchasereturnitem" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.purchasereturn" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.salesorderitem" Width="1.5" PointX="5.25" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.salesorder" Width="1.5" PointX="3" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.salesreturnitem" Width="1.5" PointX="8.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.salesreturn" Width="1.5" PointX="6" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.stock" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.supplierpayment" Width="1.5" PointX="3" PointY="33.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.supplier" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.unit" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.user" Width="1.5" PointX="10.75" PointY="6.5" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_adjustmentsstock" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_CustomerAgent" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_salesorderagent" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_salesreturnagent" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_StockCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_collectioncheckcustomercollection" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_collectionsalesordercustomercollection" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_collectionsalesordersalesorder" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_customercollectioncustomer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_salesordercustomer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_salesreturncustomer" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_supplierpaymentpaymentcheckitem" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_paymentorderitempurchaseorder" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_paymentorderitemsupplierpayment" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PurchaseOrderDetails1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PurchaseOrderItemStock1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PurchaseOrderSupplier" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_purchasereturnitempurchasereturn" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_purchasereturnitemstock" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_purchasereturnsupplier" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.salesorderitems_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.salesorderitems_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_salesreturnitemsalesreturn" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_salesreturnitemstock" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_StockUnit" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_supplierpaymentsupplier" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

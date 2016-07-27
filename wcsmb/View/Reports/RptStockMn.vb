@@ -95,7 +95,7 @@
         printDoc.shOnHand = shOnHand.Checked
         printDoc.report_detail = detail
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             printDoc.items = context.Database _
                 .SqlQuery(Of _StockMonitor)(qry) _
                 .ToList()

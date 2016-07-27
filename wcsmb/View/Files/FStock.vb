@@ -127,7 +127,7 @@
 #End Region
 
     Public Sub deleteObject() Implements IControl.deleteObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.stocks.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             currentObject.Active = False
@@ -140,7 +140,7 @@
         End Using
 
         'trash
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             Dim trashAction = "update stocks set active = false where name = ''" & currentObject.Name & "''" &
                 " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
             context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date, '" & trashAction & "')")
@@ -158,6 +158,7 @@
         tbName.Enabled = enable
         tbCost.Enabled = enable
         tbOnHand.Enabled = enable
+        tbRetail.Enabled = enable
         tbLast.Enabled = enable
         tbDescription.Enabled = enable
         tbUnit.Enabled = enable
@@ -170,7 +171,7 @@
 
     Public Sub loadObject() Implements IControl.loadObject
         If Not IsNothing(currentObject) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 currentObject = context.stocks _
                     .Include("Unit").Include("Category") _
                     .Where(Function(c) c.Id = currentObject.Id) _
@@ -178,7 +179,7 @@
             End Using
             loadCurrentObject()
         Else
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 currentObject = context.stocks _
                     .Include("Unit").Include("Category") _
                     .Where(Function(c) c.Active = True) _
@@ -205,8 +206,11 @@
         tbCost.Text = If(IsNothing(currentObject.Cost), String.Empty,
             FormatNumber(CDbl(currentObject.Cost), 2))
 
-        tbLast.Text = If(IsNothing(currentObject.Price), String.Empty,
-            FormatNumber(CDbl(currentObject.Price), 2))
+        tbRetail.Text = If(IsNothing(currentObject.RetailPrice), String.Empty,
+            FormatNumber(CDbl(currentObject.RetailPrice), 2))
+
+        tbLast.Text = If(IsNothing(currentObject.WholesalePrice), String.Empty,
+            FormatNumber(CDbl(currentObject.WholesalePrice), 2))
 
         tbOnHand.Text = If(IsNothing(currentObject.QtyOnHand), String.Empty, currentObject.QtyOnHand)
         tbCategory.Text = If(IsNothing(currentObject.category), String.Empty, currentObject.category.Name)
@@ -230,11 +234,12 @@
         tbOnHand.Text = String.Empty
         tbDescription.Text = String.Empty
         tbCost.Text = String.Empty
-        tbLast.Text = String.Empty
+        tbRetail.Text = String.Empty
+        tbLast.Text = String.Empty 
     End Sub
 
     Public Sub saveObject() Implements IControl.saveObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = New stock
             setObjectValues(context)
             context.stocks.Add(currentObject)
@@ -259,7 +264,8 @@
         currentObject.Name = tbName.Text.Trim
         currentObject.Description = tbDescription.Text
         currentObject.Cost = If(String.IsNullOrWhiteSpace(tbCost.Text), Nothing, tbCost.Text)
-        currentObject.Price = If(String.IsNullOrWhiteSpace(tbLast.Text), Nothing, tbLast.Text)
+        currentObject.RetailPrice = If(String.IsNullOrWhiteSpace(tbRetail.Text), Nothing, tbRetail.Text)
+        currentObject.WholesalePrice = If(String.IsNullOrWhiteSpace(tbLast.Text), Nothing, tbLast.Text)
         currentObject.QtyOnHand = If(String.IsNullOrWhiteSpace(tbOnHand.Text), Nothing, tbOnHand.Text)
         currentObject.ModifyDate = DateTime.Now
         currentObject.ModifyBy = Controller.currentUser.Username
@@ -287,7 +293,7 @@
     End Function
 
     Public Sub updateObject() Implements IControl.updateObject
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context As New DatabaseContext()
             currentObject = context.stocks.Where(Function(c) _
                 c.Id.Equals(currentObject.Id)).FirstOrDefault
             setObjectValues(context)
@@ -315,8 +321,12 @@
             Return "Stock name is required."
         End If
 
+        If String.IsNullOrWhiteSpace(tbRetail.Text) Then
+            Return "Retail price is required."
+        End If
+
         If String.IsNullOrWhiteSpace(tbLast.Text) Then
-            Return "Price is required."
+            Return "Wholesale price is required."
         End If
 
         If Not String.IsNullOrWhiteSpace(tbCategory.Text) _
@@ -331,7 +341,7 @@
 
         If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) _
             OrElse Not currentObject.Name.ToUpper.Equals(tbName.Text.ToUpper) Then
-            Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context As New DatabaseContext()
                 'c.Active = True AndAlso 
                 Dim duplicate = context.stocks _
                     .Where(Function(c) c.Name.ToUpper.Equals(tbName.Text.ToUpper)) _
@@ -343,15 +353,19 @@
             End Using
         End If
 
-        Dim price, cost As Double
+        Dim retailPrice, wholesalePrice, cost As Double
         Dim qty As Integer
 
-        Double.TryParse(tbLast.Text, price)
+        Double.TryParse(tbRetail.Text, retailPrice)
+        Double.TryParse(tbLast.Text, wholesalePrice)
         Double.TryParse(tbCost.Text, cost)
         Integer.TryParse(tbOnHand.Text, qty)
 
-        If IsNothing(price) OrElse price < 0 Then
-            Return "Invalid Price value."
+        If IsNothing(retailPrice) OrElse retailPrice < 0 Then
+            Return "Invalid retail price value."
+        End If
+        If IsNothing(wholesalePrice) OrElse wholesalePrice < 0 Then
+            Return "Invalid wholesale price value."
         End If
 
         If IsNothing(cost) OrElse cost < 0 Then
@@ -380,7 +394,7 @@
     End Sub
 
     Private Sub findObjectByName(ByVal name As String)
-        Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+        Using context = New DatabaseContext()
             currentObject = (From stock In context.stocks.Include("Unit").Include("Category")
                              Select stock).Where(Function(c) c.Name.Equals(name) And c.Active = True).FirstOrDefault()
         End Using
@@ -409,7 +423,7 @@
         If tbSearch.Text = String.Empty Then
             displayList(Util.getInitialStockNames)
         Else
-            Using context = New DatabaseContext(Constants.CONNECTION_STRING_NAME)
+            Using context = New DatabaseContext()
                 displayList(context.stocks _
                     .Where(Function(c) _
                         (c.Name.ToUpper.StartsWith(tbSearch.Text.ToUpper) _

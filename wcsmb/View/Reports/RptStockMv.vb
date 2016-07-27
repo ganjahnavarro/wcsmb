@@ -88,9 +88,7 @@
 
         qry += "order by stock, date "
 
-        Using context As New DatabaseContext(Constants.CONNECTION_STRING_NAME)
-            context.Database.CommandTimeout = 90
-
+        Using context As New DatabaseContext()
             printDoc.items = context.Database _
                 .SqlQuery(Of _Movement)(qry) _
                 .ToList()
