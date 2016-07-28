@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="activities">
           <Key>
             <PropertyRef Name="Id" />
@@ -93,6 +93,15 @@
           <Property Name="ModifyDate" Type="datetime" Precision="0" Nullable="false" />
           <Property Name="customerId" Type="int" Nullable="false" />
           <Property Name="Bank" Type="longtext" Nullable="false" />
+        </EntityType>
+        <EntityType Name="customerprice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="double" Nullable="false" />
+          <Property Name="stockId" Type="int" Nullable="false" />
+          <Property Name="customerId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="customers">
           <Key>
@@ -323,6 +332,30 @@
           <Property Name="ModifyBy" Type="varchar" MaxLength="255" />
           <Property Name="ModifyDate" Type="date" />
         </EntityType>
+        <Association Name="customerprice_ibfk_1">
+          <End Role="stocks" Type="Self.stocks" Multiplicity="1" />
+          <End Role="customerprice" Type="Self.customerprice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stocks">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="customerprice">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="customerprice_ibfk_2">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="customerprice" Type="Self.customerprice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="customerprice">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_adjustmentsstock">
           <End Role="stocks" Type="Self.stocks" Multiplicity="1" />
           <End Role="adjustments" Type="Self.adjustments" Multiplicity="*" />
@@ -644,6 +677,7 @@
           <EntitySet Name="collectionorderitems" EntityType="Self.collectionorderitems" Schema="wcsmb" store:Type="Tables" />
           <EntitySet Name="counters" EntityType="Self.counters" Schema="wcsmb" store:Type="Tables" />
           <EntitySet Name="customercollections" EntityType="Self.customercollections" Schema="wcsmb" store:Type="Tables" />
+          <EntitySet Name="customerprice" EntityType="Self.customerprice" Schema="wcsmb" store:Type="Tables" />
           <EntitySet Name="customers" EntityType="Self.customers" Schema="wcsmb" store:Type="Tables" />
           <EntitySet Name="paymentcheckitems" EntityType="Self.paymentcheckitems" Schema="wcsmb" store:Type="Tables" />
           <EntitySet Name="paymentorderitems" EntityType="Self.paymentorderitems" Schema="wcsmb" store:Type="Tables" />
@@ -660,6 +694,14 @@
           <EntitySet Name="suppliers" EntityType="Self.suppliers" Schema="wcsmb" store:Type="Tables" />
           <EntitySet Name="units" EntityType="Self.units" Schema="wcsmb" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="wcsmb" store:Type="Tables" />
+          <AssociationSet Name="customerprice_ibfk_1" Association="Self.customerprice_ibfk_1">
+            <End Role="stocks" EntitySet="stocks" />
+            <End Role="customerprice" EntitySet="customerprice" />
+          </AssociationSet>
+          <AssociationSet Name="customerprice_ibfk_2" Association="Self.customerprice_ibfk_2">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="customerprice" EntitySet="customerprice" />
+          </AssociationSet>
           <AssociationSet Name="FK_adjustmentsstock" Association="Self.FK_adjustmentsstock">
             <End Role="stocks" EntitySet="stocks" />
             <End Role="adjustments" EntitySet="adjustments" />
@@ -765,8 +807,7 @@
             <End Role="salesorderitems" EntitySet="salesorderitems" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -890,6 +931,7 @@
           <NavigationProperty Name="customercollections" Relationship="Self.FK_customercollectioncustomer" FromRole="customers" ToRole="customercollections" />
           <NavigationProperty Name="salesorders" Relationship="Self.FK_salesordercustomer" FromRole="customers" ToRole="salesorders" />
           <NavigationProperty Name="salesreturns" Relationship="Self.FK_salesreturncustomer" FromRole="customers" ToRole="salesreturns" />
+          <NavigationProperty Name="customerprices" Relationship="Model.customerprice_ibfk_2" FromRole="customer" ToRole="customerprice" />
         </EntityType>
         <EntityType Name="paymentcheckitem">
           <Key>
@@ -1076,6 +1118,7 @@
           <NavigationProperty Name="salesorderitems" Relationship="Self.salesorderitems_ibfk_1" FromRole="stocks" ToRole="salesorderitems" />
           <NavigationProperty Name="salesreturnitems" Relationship="Self.FK_salesreturnitemstock" FromRole="stocks" ToRole="salesreturnitems" />
           <NavigationProperty Name="unit" Relationship="Self.FK_StockUnit" FromRole="stocks" ToRole="units" />
+          <NavigationProperty Name="customerprices" Relationship="Model.customerprice_ibfk_1" FromRole="stock" ToRole="customerprice" />
         </EntityType>
         <EntityType Name="supplierpayment">
           <Key>
@@ -1581,8 +1624,52 @@
             <End Role="suppliers" EntitySet="suppliers" />
             <End Role="supplierpayments" EntitySet="supplierpayments" />
           </AssociationSet>
-        </EntityContainer>
-      </Schema>
+          <EntitySet Name="customerprices" EntityType="Model.customerprice" />
+          <AssociationSet Name="customerprice_ibfk_1" Association="Model.customerprice_ibfk_1">
+            <End Role="stock" EntitySet="stocks" />
+            <End Role="customerprice" EntitySet="customerprices" />
+          </AssociationSet>
+          <AssociationSet Name="customerprice_ibfk_2" Association="Model.customerprice_ibfk_2">
+            <End Role="customer" EntitySet="customers" />
+            <End Role="customerprice" EntitySet="customerprices" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="customerprice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="stockId" Type="Int32" Nullable="false" />
+          <Property Name="customerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="stock" Relationship="Model.customerprice_ibfk_1" FromRole="customerprice" ToRole="stock" />
+          <NavigationProperty Name="customer" Relationship="Model.customerprice_ibfk_2" FromRole="customerprice" ToRole="customer" />
+        </EntityType>
+        <Association Name="customerprice_ibfk_1">
+          <End Type="Model.stock" Role="stock" Multiplicity="1" />
+          <End Type="Model.customerprice" Role="customerprice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="stock">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="customerprice">
+              <PropertyRef Name="stockId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="customerprice_ibfk_2">
+          <End Type="Model.customer" Role="customer" Multiplicity="1" />
+          <End Type="Model.customerprice" Role="customerprice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="customerprice">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1930,7 +2017,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="customerprices">
+            <EntityTypeMapping TypeName="Model.customerprice">
+              <MappingFragment StoreEntitySet="customerprice">
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+                <ScalarProperty Name="stockId" ColumnName="stockId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

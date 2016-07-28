@@ -46,5 +46,6 @@ Partial Public Class DatabaseContext
     Public Property suppliers() As DbSet(Of supplier)
     Public Property units() As DbSet(Of unit)
     Public Property users() As DbSet(Of user)
+    Public Property customerprices() As DbSet(Of customerprice)
 
 End Class

@@ -388,6 +388,7 @@ Partial Class FCustomer
         '
         'cbType
         '
+        Me.cbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbType.Font = New System.Drawing.Font("Tahoma", 15.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cbType.FormattingEnabled = True
         Me.cbType.Items.AddRange(New Object() {"WHOLESALER", "RETAILER"})

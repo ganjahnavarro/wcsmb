@@ -55,7 +55,10 @@
         <AssociationConnector Association="Model.FK_salesreturnitemstock" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_StockUnit" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_supplierpaymentsupplier" ManuallyRouted="false" />
-      </Diagram>
+        <EntityTypeShape EntityType="Model.customerprice" Width="1.5" PointX="6" PointY="18.125" />
+        <AssociationConnector Association="Model.customerprice_ibfk_1" />
+        <AssociationConnector Association="Model.customerprice_ibfk_2" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

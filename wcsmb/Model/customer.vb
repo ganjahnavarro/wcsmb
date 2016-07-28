@@ -28,5 +28,6 @@ Partial Public Class customer
     Public Overridable Property customercollections As ICollection(Of customercollection) = New HashSet(Of customercollection)
     Public Overridable Property salesorders As ICollection(Of salesorder) = New HashSet(Of salesorder)
     Public Overridable Property salesreturns As ICollection(Of salesreturn) = New HashSet(Of salesreturn)
+    Public Overridable Property customerprices As ICollection(Of customerprice) = New HashSet(Of customerprice)
 
 End Class

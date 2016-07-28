@@ -51,6 +51,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data.Entity.EF6, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -109,6 +113,10 @@
     <Compile Include="Model\customercollection.vb">
       <DependentUpon>EntityManager.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\customerprice.vb">
+      <DependentUpon>EntityManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Dummy\_CustomerStockPrice.vb" />
     <Compile Include="Model\Dummy\_Monitor.vb" />
     <Compile Include="Model\Dummy\_Movement.vb" />
     <Compile Include="Model\Dummy\_Special.vb" />

@@ -175,6 +175,11 @@ Public Class Util
                 EtcSettings.notificationLabel.Text = msg
                 EtcSettings.notificationPanel.BackColor = color
                 Exit Select
+            Case "EtcPriceList"
+                EtcPriceList.notificationPanel.Visible = display
+                EtcPriceList.notificationLabel.Text = msg
+                EtcPriceList.notificationPanel.BackColor = color
+                Exit Select
         End Select
     End Sub
 

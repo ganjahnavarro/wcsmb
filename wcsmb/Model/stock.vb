@@ -31,5 +31,6 @@ Partial Public Class stock
     Public Overridable Property salesorderitems As ICollection(Of salesorderitem) = New HashSet(Of salesorderitem)
     Public Overridable Property salesreturnitems As ICollection(Of salesreturnitem) = New HashSet(Of salesreturnitem)
     Public Overridable Property unit As unit
+    Public Overridable Property customerprices As ICollection(Of customerprice) = New HashSet(Of customerprice)
 
 End Class
