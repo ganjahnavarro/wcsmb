@@ -470,7 +470,7 @@ Public Class Controller
             If closePressed = False AndAlso GetKeyPress(Keys.F11) Then
                 closePressed = True
                 If IsNothing(updateMode) Or currentForm.Equals(EtcHelp.Name) _
-                Or currentForm.Equals(EtcAddItem.Name) Or currentForm.Equals(SelectSP.Name) _
+                Or currentForm.Equals(SelectSP.Name) _
                 Or currentForm.Equals(SelectCC.Name) Then
                     handleClose()
                 Else
@@ -651,17 +651,8 @@ Public Class Controller
             Case "TransCC"
                 TransCC.showSelection()
                 Exit Select
-            Case "TransPO"
-                TransPO.showAddItem()
-                Exit Select
-            Case "TransSO"
-                TransSO.showAddItem()
-                Exit Select
             Case "TransSP"
                 TransSP.showSelection()
-                Exit Select
-            Case "EtcAddItem"
-                EtcAddItem.saveAndAddAnother()
                 Exit Select
         End Select
     End Sub
@@ -911,9 +902,6 @@ Public Class Controller
             Case "EtcUsers"
                 EtcUsers.checkClick()
                 Exit Select
-            Case "EtcAddItem"
-                EtcAddItem.saveItem(True)
-                Exit Select
             Case "TransCC"
                 TransCC.checkClick()
                 Exit Select
@@ -1067,9 +1055,6 @@ Public Class Controller
                 Exit Select
             Case "EtcSettings"
                 EtcSettings.Close()
-                Exit Select
-            Case "EtcAddItem"
-                EtcAddItem.Close()
                 Exit Select
             Case "EtcAbout"
                 EtcAbout.Close()

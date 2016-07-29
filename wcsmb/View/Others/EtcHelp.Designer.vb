@@ -472,7 +472,7 @@ Partial Class EtcHelp
         '
         'PictureBox9
         '
-        Me.PictureBox9.Image = Global.wcsmb.My.Resources.Resources.search
+        Me.PictureBox9.Image = Global.wcsmb.My.Resources.Resources.search1
         Me.PictureBox9.Location = New System.Drawing.Point(310, 37)
         Me.PictureBox9.Name = "PictureBox9"
         Me.PictureBox9.Size = New System.Drawing.Size(30, 30)

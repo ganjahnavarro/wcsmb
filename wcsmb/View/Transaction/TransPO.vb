@@ -37,7 +37,6 @@
 
     Private Sub enterGrid_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles enterGrid.CellBeginEdit
         btnCheck.Visible = False
-        btnAddItem.Visible = False
     End Sub
 
     Private Sub initialize()
@@ -54,7 +53,6 @@
             Me.enableInputs(True)
             Controller.updateMode = Constants.UPDATE_MODE_CREATE
             showUpdateButtons(True)
-            updateCountLabel()
         End If
     End Sub
 
@@ -210,7 +208,6 @@
             Try
                 enterGrid.Rows.RemoveAt(enterGrid.CurrentCell.RowIndex)
                 updateTotalAmount()
-                updateCountLabel()
             Catch ex As Exception
                 For Each cell As DataGridViewCell In enterGrid _
                         .Rows(enterGrid.CurrentCell.RowIndex).Cells()
@@ -224,9 +221,7 @@
         tbDocNo.Enabled = enable
         tbRemarks.Enabled = enable
         docDate.Enabled = enable
-        tbDisc1.Enabled = enable
         tbSupplier.Enabled = enable
-        btnAddItem.Visible = enable
 
         enterGrid.ReadOnly = Not enable
         setReadOnlyColumns()
@@ -234,9 +229,6 @@
         If enable Then
             tbDocNo.Focus()
             enterGrid.ClearSelection()
-        Else
-            tbDisc2.Enabled = False
-            tbDisc3.Enabled = False
         End If
     End Sub
 
@@ -336,9 +328,6 @@
         tbTotalAmt.Text = String.Empty
         docDate.Value = DateTime.Today
         tbSupplier.Text = String.Empty
-        tbDisc1.Text = String.Empty
-        tbDisc2.Text = String.Empty
-        tbDisc3.Text = String.Empty
 
         Util.clearRows(enterGrid)
     End Sub
@@ -376,15 +365,6 @@
         currentObject.ModifyDate = DateTime.Now
         currentObject.Remarks = tbRemarks.Text
         currentObject.TotalAmount = totalAmount
-
-        Dim disc1, disc2, disc3 As Double
-        Double.TryParse(tbDisc1.Text, disc1)
-        Double.TryParse(tbDisc2.Text, disc2)
-        Double.TryParse(tbDisc3.Text, disc3)
-
-        currentObject.Discount1 = disc1
-        currentObject.Discount2 = disc2
-        currentObject.Discount3 = disc3
 
         If String.IsNullOrWhiteSpace(tbSupplier.Text) Then
             currentObject.supplier = Nothing
@@ -460,21 +440,6 @@
         lblBy.Visible = True
         lblOn.Visible = True
 
-        tbDisc1.Text = FormatNumber(CDbl(currentObject.Discount1), 2)
-        If currentObject.Discount1 = 0 Then
-            tbDisc1.Text = Nothing
-        End If
-
-        tbDisc2.Text = FormatNumber(CDbl(currentObject.Discount2), 2)
-        If currentObject.Discount2 = 0 Then
-            tbDisc2.Text = Nothing
-        End If
-
-        tbDisc3.Text = FormatNumber(CDbl(currentObject.Discount3), 2)
-        If currentObject.Discount3 = 0 Then
-            tbDisc3.Text = Nothing
-        End If
-
         tbDocNo.Text = currentObject.DocumentNo
         tbRemarks.Text = currentObject.Remarks
         docDate.Value = currentObject.Date
@@ -490,7 +455,6 @@
         btnDelete.Visible = modifiable
 
         loadObjectItems(currentObject.purchaseorderitems.ToList())
-        updateColumnSizes()
     End Sub
 
     Private Sub loadObjectItems(ByVal orderItems As List(Of purchaseorderitem))
@@ -520,15 +484,6 @@
         enterGrid.Columns.Item("Disc1").Visible = hasDisc1
         enterGrid.Columns.Item("Disc2").Visible = hasDisc2
         enterGrid.Columns.Item("Disc3").Visible = hasDisc3
-        updateCountLabel()
-    End Sub
-
-    Private Sub updateCountLabel()
-        lblCount.Text = enterGrid.Rows.Count - 1
-    End Sub
-
-    Private Sub enterGrid_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles enterGrid.UserAddedRow
-        updateCountLabel()
     End Sub
 
     Private Sub loadGrid()
@@ -607,26 +562,13 @@
                         enterGrid("Desc", e.RowIndex).Value = selectedStock.Description
                         enterGrid("Unit", e.RowIndex).Value = selectedStock.unit.Name
 
-                        'TODO Check
                         'If IsNothing(enterGrid("Price", e.RowIndex).Value) Then
                         enterGrid("Price", e.RowIndex).Value =
-                            If(selectedStock.Cost = 0, selectedStock.RetailPrice, selectedStock.Cost)
+                            If(selectedStock.Cost = 0, selectedStock.WholesalePrice, selectedStock.Cost)
                         'End If
 
                         If IsNothing(enterGrid("Qty", e.RowIndex).Value) Then
                             enterGrid("Qty", e.RowIndex).Value = 1
-                        End If
-
-                        If IsNothing(enterGrid("Disc1", e.RowIndex).Value) Then
-                            enterGrid("Disc1", e.RowIndex).Value = tbDisc1.Text
-                        End If
-
-                        If IsNothing(enterGrid("Disc2", e.RowIndex).Value) Then
-                            enterGrid("Disc2", e.RowIndex).Value = tbDisc2.Text
-                        End If
-
-                        If IsNothing(enterGrid("Disc3", e.RowIndex).Value) Then
-                            enterGrid("Disc3", e.RowIndex).Value = tbDisc3.Text
                         End If
 
                         varsChanged(e)
@@ -770,80 +712,6 @@
         End If
     End Sub
 
-    Private Sub discount1Changed(sender As Object, e As EventArgs) Handles tbDisc1.TextChanged
-        If Not String.IsNullOrEmpty(Controller.updateMode) Then
-            If String.IsNullOrWhiteSpace(tbDisc1.Text) Then
-                tbDisc2.Text = String.Empty
-                tbDisc2.Enabled = False
-            Else
-                tbDisc2.Enabled = True
-            End If
-
-            Dim disc As New Double
-            Double.TryParse(tbDisc1.Text, disc)
-
-            If Not IsNothing(disc) Then
-                For rowIndex = 0 To enterGrid.RowCount - 2
-                    enterGrid("Disc1", rowIndex).Value = disc
-                    varsChanged(rowIndex)
-                Next
-            End If
-
-            tbDisc1.Text = If(IsNothing(disc), String.Empty, tbDisc1.Text)
-            updateColumnSizes()
-            updateTotalAmount()
-        End If
-    End Sub
-
-    Private Sub discount2Changed(sender As Object, e As EventArgs) Handles tbDisc2.TextChanged
-        If Not String.IsNullOrEmpty(Controller.updateMode) Then
-            If String.IsNullOrWhiteSpace(tbDisc2.Text) Then
-                tbDisc3.Text = String.Empty
-                tbDisc3.Enabled = False
-            Else
-                tbDisc3.Enabled = True
-            End If
-
-            Dim disc As New Double
-            Double.TryParse(tbDisc2.Text, disc)
-
-            If Not IsNothing(disc) Then
-                For rowIndex = 0 To enterGrid.RowCount - 2
-                    enterGrid("Disc2", rowIndex).Value = disc
-                    varsChanged(rowIndex)
-                Next
-            End If
-
-            tbDisc2.Text = If(IsNothing(disc), String.Empty, tbDisc2.Text)
-            updateColumnSizes()
-            updateTotalAmount()
-        End If
-    End Sub
-
-    Private Sub discount3Changed(sender As Object, e As EventArgs) Handles tbDisc3.TextChanged
-        If Not String.IsNullOrEmpty(Controller.updateMode) Then
-            Dim disc As New Double
-            Double.TryParse(tbDisc3.Text, disc)
-
-            If Not IsNothing(disc) Then
-                For rowIndex = 0 To enterGrid.RowCount - 2
-                    enterGrid("Disc3", rowIndex).Value = disc
-                    varsChanged(rowIndex)
-                Next
-            End If
-
-            tbDisc3.Text = If(IsNothing(disc), String.Empty, tbDisc3.Text)
-            updateColumnSizes()
-            updateTotalAmount()
-        End If
-    End Sub
-
-    Private Sub updateColumnSizes()
-        enterGrid.Columns.Item("Disc1").Visible = If(String.IsNullOrEmpty(tbDisc1.Text), False, True)
-        enterGrid.Columns.Item("Disc2").Visible = If(String.IsNullOrEmpty(tbDisc2.Text), False, True)
-        enterGrid.Columns.Item("Disc3").Visible = If(String.IsNullOrEmpty(tbDisc3.Text), False, True)
-    End Sub
-
     Private Sub enterGrid_RowValidating(sender As Object, e As DataGridViewCellCancelEventArgs) Handles enterGrid.RowValidating
         If Not String.IsNullOrEmpty(Controller.updateMode) Then
             If Not String.IsNullOrWhiteSpace(enterGrid("Stock", e.RowIndex).Value) Then
@@ -941,8 +809,6 @@
             If enterGrid.Focused AndAlso enterGrid.CurrentCell.ReadOnly Then
                 SendKeys.Send("{TAB}")
             End If
-
-            btnAddItem.Visible = Not enterGrid.IsCurrentRowDirty
         End If
     End Sub
 
@@ -950,25 +816,6 @@
         enterGrid.Columns.Item("Desc").ReadOnly = True
         enterGrid.Columns.Item("Unit").ReadOnly = True
         enterGrid.Columns.Item("Amount").ReadOnly = True
-    End Sub
-
-    Private Sub btnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
-        showAddItem()
-    End Sub
-
-    Public Sub showAddItem()
-        If btnAddItem.Visible Then
-            Double.TryParse(tbDisc1.Text, EtcAddItem.d1)
-            Double.TryParse(tbDisc2.Text, EtcAddItem.d2)
-            Double.TryParse(tbDisc3.Text, EtcAddItem.d3)
-
-            EtcAddItem.d1enabled = If(String.IsNullOrEmpty(tbDisc1.Text), False, True)
-            EtcAddItem.d2enabled = If(String.IsNullOrEmpty(tbDisc2.Text), False, True)
-            EtcAddItem.d3enabled = If(String.IsNullOrEmpty(tbDisc3.Text), False, True)
-
-            EtcAddItem.fromPO = True
-            EtcAddItem.openUp(Me.Name)
-        End If
     End Sub
 
     Public Sub addOrderItem(ByVal values As List(Of String))
@@ -986,7 +833,6 @@
             getRowAmount(qty, price, d1, d2, d3))
 
         enterGrid.CurrentCell = enterGrid("Stock", enterGrid.RowCount - 2)
-        updateCountLabel()
     End Sub
 
     Private Sub enterGrid_CellClick(sender As Object, e As DataGridViewCellEventArgs)

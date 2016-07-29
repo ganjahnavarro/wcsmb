@@ -106,7 +106,7 @@ Partial Class TransPR
         'btnSearch
         '
         Me.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnSearch.Image = Global.wcsmb.My.Resources.Resources.search
+        Me.btnSearch.Image = Global.wcsmb.My.Resources.Resources.search1
         Me.btnSearch.Location = New System.Drawing.Point(284, 0)
         Me.btnSearch.Margin = New System.Windows.Forms.Padding(4, 0, 0, 0)
         Me.btnSearch.Name = "btnSearch"

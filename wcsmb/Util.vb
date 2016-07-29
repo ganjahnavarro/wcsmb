@@ -70,11 +70,6 @@ Public Class Util
                 EtcUsers.notificationLabel.Text = msg
                 EtcUsers.notificationPanel.BackColor = color
                 Exit Select
-            Case "EtcAddItem"
-                EtcAddItem.notificationPanel.Visible = display
-                EtcAddItem.notificationLabel.Text = msg
-                EtcAddItem.notificationPanel.BackColor = color
-                Exit Select
             Case "TransCC"
                 TransCC.notificationPanel.Visible = display
                 TransCC.notificationLabel.Text = msg

@@ -303,12 +303,6 @@
     <Compile Include="View\Others\EtcAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\Others\EtcAddItem.Designer.vb">
-      <DependentUpon>EtcAddItem.vb</DependentUpon>
-    </Compile>
-    <Compile Include="View\Others\EtcAddItem.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="View\Others\EtcHelp.Designer.vb">
       <DependentUpon>EtcHelp.vb</DependentUpon>
     </Compile>
@@ -512,9 +506,6 @@
     <EmbeddedResource Include="View\Main.resx" />
     <EmbeddedResource Include="View\Others\EtcAbout.resx">
       <DependentUpon>EtcAbout.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Others\EtcAddItem.resx">
-      <DependentUpon>EtcAddItem.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Others\EtcHelp.resx">
       <DependentUpon>EtcHelp.vb</DependentUpon>

@@ -8,6 +8,8 @@
     Dim selectedStock As stock
     Dim prevStockName As String
 
+    Dim customer As customer
+
     Dim currentPrefix, currentUnprefixedDoc As String
 
     Private Sub postConstruct(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -50,7 +52,6 @@
 
     Private Sub enterGrid_CellBeginEdit(sender As Object, e As DataGridViewCellCancelEventArgs) Handles enterGrid.CellBeginEdit
         btnCheck.Visible = False
-        btnAddItem.Visible = False
     End Sub
 
     Public Sub addClick() Handles btnAdd.Click
@@ -59,16 +60,7 @@
             showUpdateButtons(True)
             Me.reset()
             Me.enableInputs(True)
-            setLatestDR()
-            updateCountLabel()
         End If
-    End Sub
-
-    Private Sub setLatestDR()
-        Using context As New DatabaseContext()
-            Dim nextCounter = context.counters.Where(Function(c) c.Prefix.Equals("DR")).FirstOrDefault
-            tbDoc.Text = "DR" & nextCounter.Count
-        End Using
     End Sub
 
     Public Sub editClick() Handles btnEdit.Click
@@ -189,7 +181,6 @@
             Try
                 enterGrid.Rows.RemoveAt(enterGrid.CurrentCell.RowIndex)
                 updateTotalAmount()
-                updateCountLabel()
             Catch ex As Exception
                 For Each cell As DataGridViewCell In enterGrid _
                         .Rows(enterGrid.CurrentCell.RowIndex).Cells()
@@ -234,14 +225,11 @@
     End Function
 
     Public Sub enableInputs(enable As Boolean) Implements IControl.enableInputs
-        tbDisc1.Enabled = enable
-        tbDisc2.Enabled = enable
         tbRemarks.Enabled = enable
         docDate.Enabled = enable
         tbAgent.Enabled = enable
         tbDoc.Enabled = enable
         tbCustomer.Enabled = enable
-        btnAddItem.Visible = enable
 
         enterGrid.ReadOnly = Not enable
         setReadOnlyColumns()
@@ -355,8 +343,6 @@
 
         tbRemarks.Text = String.Empty
         tbTotalAmt.Text = String.Empty
-        tbDisc1.Text = String.Empty
-        tbDisc2.Text = String.Empty
         docDate.Value = DateTime.Today
         tbCustomer.Text = String.Empty
         tbAgent.Text = String.Empty
@@ -370,7 +356,6 @@
             setObjectValues(context)
             context.salesorders.Add(currentObject)
 
-            updateCounter(context)
             Dim action As String = Controller.currentUser.Username & " created a sales order (" &
                 currentObject.DocumentNo & ")"
             context.activities.Add(New activity(action))
@@ -390,13 +375,6 @@
         currentObject.DocumentNo = tbDoc.Text
         currentObject.Date = docDate.Value
 
-        Dim d1, d2 As Double
-        Double.TryParse(tbDisc1.Text, d1)
-        Double.TryParse(tbDisc2.Text, d2)
-
-        currentObject.Discount1 = d1
-        currentObject.Discount2 = d2
-
         currentObject.Remarks = tbRemarks.Text
         currentObject.TotalAmount = totalAmount
 
@@ -414,9 +392,7 @@
         If String.IsNullOrEmpty(tbCustomer.Text) Then
             currentObject.customer = Nothing
         Else
-            currentObject.customerId = context.customers _
-                    .Where(Function(c) c.Name.ToUpper.Equals(tbCustomer.Text.ToUpper) And c.Active = True) _
-                    .Select(Function(c) c.Id).FirstOrDefault
+            currentObject.customerId = customer.Id
         End If
 
         setObjectItemsValues(context)
@@ -432,7 +408,6 @@
                 .Where(Function(c) c.Id.Equals(currentObject.Id)).FirstOrDefault()
             setObjectValues(context)
 
-            updateCounter(context)
             Dim action As String = Controller.currentUser.Username & " updated a sales order (" &
                currentObject.DocumentNo & ")"
             context.activities.Add(New activity(action))
@@ -482,19 +457,6 @@
                     .Where(Function(c) c.DocumentNo.ToUpper.Equals(tbDoc.Text.ToUpper)).FirstOrDefault
 
                 If Not IsNothing(duplicate) Then
-                    Dim doc = getDocPrefix()
-                    Dim ctr = context.counters.Where(Function(c) c.Prefix.Equals(doc)).FirstOrDefault
-
-                    If Not IsNothing(ctr) Then
-                        Dim maxExistingValQuery As String = "select cast(substring(documentno, 3) as unsigned) as nextval from salesorders" &
-                            " where documentno like '" & doc & "%' order by cast(substring(documentno, 3) as unsigned) desc limit 1"
-                        Dim maxExistingVal As Integer = context.Database.SqlQuery(Of Integer)(maxExistingValQuery).FirstOrDefault
-
-                        If Not IsNothing(maxExistingVal) Then
-                            tbDoc.Text = getDocPrefix() & (maxExistingVal + 1)
-                            Return "Document No. already exists. Use this instead?"
-                        End If
-                    End If
                     Return "Document No. already exists."
                 End If
             End Using
@@ -506,26 +468,6 @@
 
         Return Nothing
     End Function
-
-    Private Sub updateCounter(ByRef context As DatabaseContext)
-        Dim doc = getDocPrefix()
-        ctr = context.counters.Where(Function(c) _
-            c.Prefix.ToUpper.Equals(doc)).FirstOrDefault
-
-        If Not IsNothing(ctr) Then
-            Dim maxExistingValQuery As String = "select cast(substring(documentno, 3) as unsigned) as nextval from salesorders" &
-            " where documentno like '" & doc & "%' order by cast(substring(documentno, 3) as unsigned) desc limit 1"
-            Dim maxExistingVal As Integer = context.Database.SqlQuery(Of Integer)(maxExistingValQuery).FirstOrDefault
-
-            If Not IsNothing(maxExistingVal) Then
-                Dim currentVal = CInt(currentObject.DocumentNo.Substring(2))
-                Dim comparedVal = Math.Max(maxExistingVal, currentVal)
-                ctr.Count = comparedVal + 1
-            Else
-                ctr.Count += 1
-            End If
-        End If
-    End Sub
 
     Private Function getDocPrefix() As String
         If Not String.IsNullOrWhiteSpace(tbDoc.Text) _
@@ -544,16 +486,6 @@
         lblBy.Visible = True
         lblOn.Visible = True
 
-        tbDisc1.Text = FormatNumber(CDbl(currentObject.Discount1), 2)
-        If currentObject.Discount1 = 0 Then
-            tbDisc1.Text = Nothing
-        End If
-
-        tbDisc2.Text = FormatNumber(CDbl(currentObject.Discount2), 2)
-        If currentObject.Discount2 = 0 Then
-            tbDisc2.Text = Nothing
-        End If
-
         tbRemarks.Text = currentObject.Remarks
         docDate.Value = currentObject.Date
         tbTotalAmt.Text = FormatNumber(CDbl(currentObject.TotalAmount), 2)
@@ -570,15 +502,6 @@
         btnDelete.Visible = modifiable
 
         loadObjectItems(currentObject.salesorderitems.ToList())
-        updateColumnSizes()
-    End Sub
-
-    Private Sub updateCountLabel()
-        lblCount.Text = enterGrid.Rows.Count - 1
-    End Sub
-
-    Private Sub enterGrid_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles enterGrid.UserAddedRow
-        updateCountLabel()
     End Sub
 
     Private Sub loadObjectItems(ByVal orderItems As List(Of salesorderitem))
@@ -598,7 +521,6 @@
                 getRowAmount(orderItem.Quantity, orderItem.Price,
                     orderItem.Discount1, orderItem.Discount2))
         Next
-        updateCountLabel()
     End Sub
 
     Private Sub setObjectItemsValues(ByRef context As DatabaseContext)
@@ -664,7 +586,6 @@
         End If
 
         tb.Text = If(IsNothing(disc), String.Empty, tb.Text)
-        updateColumnSizes()
         updateTotalAmount()
     End Sub
 
@@ -675,14 +596,6 @@
             totalAmount += If(IsNothing(getRowAmount(rowIndex)), 0, getRowAmount(rowIndex))
         Next
         tbTotalAmt.Text = FormatNumber(CDbl(totalAmount), 2)
-    End Sub
-
-    Private Sub discountAChanged(sender As Object, e As EventArgs) Handles tbDisc1.TextChanged
-        populateDiscountColumn(tbDisc1, "Disc1")
-    End Sub
-
-    Private Sub discountBChanged(sender As Object, e As EventArgs) Handles tbDisc2.TextChanged
-        populateDiscountColumn(tbDisc2, "Disc2")
     End Sub
 
     Private Sub enterGrid_CellValidated(sender As Object, e As DataGridViewCellEventArgs) Handles enterGrid.CellValidated
@@ -715,26 +628,20 @@
                         .Where(Function(c) c.Name.Equals(stockName) And c.Active = True).FirstOrDefault
 
                     If Not IsNothing(selectedStock) Then
+                        Dim customerPrice = context.customerprices _
+                            .Where(Function(c) c.stockId.Equals(selectedStock.Id) And c.customerId = customer.Id).FirstOrDefault
+
                         enterGrid("Desc", e.RowIndex).Value = selectedStock.Description
                         enterGrid("Unit", e.RowIndex).Value = selectedStock.unit.Name
                         enterGrid("Cost", e.RowIndex).Value = selectedStock.Cost
                         enterGrid("OnHand", e.RowIndex).Value = selectedStock.QtyOnHand
                         enterGrid("Available", e.RowIndex).Value = Util.getStockAvailableQty(selectedStock.Id)
 
-                        'If IsNothing(enterGrid("Price", e.RowIndex).Value) Then
-                        enterGrid("Price", e.RowIndex).Value = selectedStock.RetailPrice
-                        'End If
+                        Dim defaultPrice = If(customer.Type.Equals(Constants.CUSTOMER_TYPE_RETAILER), selectedStock.RetailPrice, selectedStock.WholesalePrice)
+                        enterGrid("Price", e.RowIndex).Value = If(IsNothing(customerPrice), defaultPrice, customerPrice.Price)
 
                         If IsNothing(enterGrid("Qty", e.RowIndex).Value) Then
                             enterGrid("Qty", e.RowIndex).Value = 1
-                        End If
-
-                        If IsNothing(enterGrid("Disc1", e.RowIndex).Value) Then
-                            enterGrid("Disc1", e.RowIndex).Value = tbDisc1.Text
-                        End If
-
-                        If IsNothing(enterGrid("Disc2", e.RowIndex).Value) Then
-                            enterGrid("Disc2", e.RowIndex).Value = tbDisc2.Text
                         End If
 
                         varsChanged(e)
@@ -800,6 +707,8 @@
 
         enterGrid.Columns.Item("Id").Visible = False
         enterGrid.Columns.Item("OnHand").Visible = False
+        enterGrid.Columns.Item("Disc1").Visible = False
+        enterGrid.Columns.Item("Disc2").Visible = False
         enterGrid.Columns.Item("Cost").Visible = If(Controller.currentUser.Admin, True, False)
 
         setReadOnlyColumns()
@@ -827,24 +736,6 @@
         enterGrid.Columns.Item("Stock").MinimumWidth = 130
         enterGrid.Columns.Item("Amount").MinimumWidth = 100
         enterGrid.Columns.Item("Desc").MinimumWidth = 140
-
-        updateColumnSizes()
-    End Sub
-
-    Private Sub updateColumnSizes()
-        If Not String.IsNullOrEmpty(tbDisc1.Text) And Not String.IsNullOrEmpty(tbDisc2.Text) Then
-            enterGrid.Columns.Item("Disc1").Visible = True
-            enterGrid.Columns.Item("Disc2").Visible = True
-        ElseIf Not String.IsNullOrEmpty(tbDisc1.Text) Then
-            enterGrid.Columns.Item("Disc1").Visible = True
-            enterGrid.Columns.Item("Disc2").Visible = False
-        ElseIf Not String.IsNullOrEmpty(tbDisc2.Text) Then
-            enterGrid.Columns.Item("Disc1").Visible = False
-            enterGrid.Columns.Item("Disc2").Visible = True
-        Else
-            enterGrid.Columns.Item("Disc1").Visible = False
-            enterGrid.Columns.Item("Disc2").Visible = False
-        End If
     End Sub
 
     Public Sub resetListSelection() Implements IControl.resetListSelection
@@ -957,11 +848,11 @@
     Private Sub tbCustomer_TextChanged(sender As Object, e As EventArgs) Handles tbCustomer.TextChanged
         If Not String.IsNullOrEmpty(Controller.updateMode) Then
             Using context As New DatabaseContext()
-                Dim cust As customer = context.customers.Where(Function(c) _
+                customer = context.customers.Where(Function(c) _
                     c.Name.ToUpper.Equals(tbCustomer.Text.ToUpper) And c.Active = True).FirstOrDefault
 
-                If Not IsNothing(cust) Then
-                    tbAgent.Text = If(cust.agent.Active, cust.agent.Name, String.Empty)
+                If Not IsNothing(customer) Then
+                    tbAgent.Text = If(customer.agent.Active, customer.agent.Name, String.Empty)
                 End If
             End Using
         End If
@@ -981,25 +872,6 @@
             If enterGrid.Focused AndAlso enterGrid.CurrentCell.ReadOnly Then
                 SendKeys.Send("{TAB}")
             End If
-
-            btnAddItem.Visible = Not enterGrid.IsCurrentRowDirty
-        End If
-    End Sub
-
-    Private Sub btnAddItem_Click(sender As Object, e As EventArgs) Handles btnAddItem.Click
-        showAddItem()
-    End Sub
-
-    Public Sub showAddItem()
-        If btnAddItem.Visible Then
-            Double.TryParse(tbDisc1.Text, EtcAddItem.d1)
-            Double.TryParse(tbDisc2.Text, EtcAddItem.d2)
-
-            EtcAddItem.d1enabled = If(String.IsNullOrEmpty(tbDisc1.Text), False, True)
-            EtcAddItem.d2enabled = If(String.IsNullOrEmpty(tbDisc2.Text), False, True)
-
-            EtcAddItem.fromPO = False
-            EtcAddItem.openUp(Me.Name)
         End If
     End Sub
 
@@ -1013,12 +885,11 @@
         Double.TryParse(values(9), d1)
         Double.TryParse(values(10), d2)
 
-        enterGrid.Rows.Add(values(0), values(1), values(2), _
-            qty, values(4), price, cost, values(7), values(8), _
+        enterGrid.Rows.Add(values(0), values(1), values(2),
+            qty, values(4), price, cost, values(7), values(8),
             d1, d2, getRowAmount(qty, price, d1, d2))
 
         enterGrid.CurrentCell = enterGrid("Stock", enterGrid.RowCount - 2)
-        updateCountLabel()
     End Sub
 
 End Class
