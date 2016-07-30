@@ -685,7 +685,7 @@
         stockList.Clear()
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
-                "where p.posteddate is not null and c.purchaseorderid = p.id and p.supplierid = s.id " &
+                "where c.purchaseorderid = p.id and p.supplierid = s.id " &
                 "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
 
             Dim items As List(Of purchaseorderitem) = context.purchaseorderitems.SqlQuery(qry).ToList
@@ -703,7 +703,7 @@
             ByVal name As String, ByVal setFields As Boolean, ByVal rowIndex As Integer)
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
-                "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
+                "where c.stockId = '" & stockId & "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
                 "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
 
             priceList = context.purchaseorderitems.SqlQuery(qry) _
@@ -732,7 +732,7 @@
             ByVal price As Double, ByVal setFields As Boolean, ByVal rowIndex As Integer)
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
-                "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
+                "where c.stockId = '" & stockId & "' and c.price = '" & price &
                 "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
                 "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
 
@@ -765,7 +765,7 @@
             ByVal rowIndex As Integer)
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
-               "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price & "' and c.discount1 = '" & disc1 &
+               "where c.stockId = '" & stockId & "' and c.price = '" & price & "' and c.discount1 = '" & disc1 &
                "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
                "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
 
@@ -800,7 +800,7 @@
             ByVal setFields As Boolean, ByVal rowIndex As Integer)
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
-               "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
+               "where c.stockId = '" & stockId & "' and c.price = '" & price &
                "' and c.discount1 = '" & disc1 & "' and c.discount2 = '" & disc2 &
                "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
                "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
@@ -840,7 +840,7 @@
 
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from purchaseorderitems c, purchaseorders p, suppliers s " &
-               "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
+               "where c.stockId = '" & stockId & "' and c.price = '" & price &
                "' and c.discount1 = '" & disc1 & "' and c.discount2 = '" & disc2 & "' and c.discount3 = '" & disc3 &
                "' and c.purchaseorderid = p.id and p.supplierid = s.id " &
                "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
@@ -848,7 +848,7 @@
             Dim orderedItems = context.purchaseorderitems.SqlQuery(qry).ToList
 
             Dim anotherQry As String = "select c.* from purchasereturnitems c, purchasereturns p, suppliers s " &
-               "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
+               "where c.stockId = '" & stockId & "' and c.price = '" & price &
                "' and c.discount1 = '" & disc1 & "' and c.discount2 = '" & disc2 & "' and c.discount3 = '" & disc3 &
                "' and c.purchasereturnid = p.id and p.supplierid = s.id " &
                "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"

@@ -41,7 +41,7 @@
         Dim qry As String = "select s.name as stock, po.date as date, 'PO' as doc, po.documentno as docno, " &
             "f.name as filter, i.quantity as qty, i.price, i.Discount1, i.Discount2, i.Discount3 from purchaseorderitems i, " &
             "purchaseorders po, stocks s, suppliers f where i.purchaseorderid = po.id " &
-            "and i.stockid = s.id and po.supplierid = f.id and po.posteddate is not null " &
+            "and i.stockid = s.id and po.supplierid = f.id " &
             " and po.date >= " & Util.inSql(dateFrom.Value) &
             " and po.date <= " & Util.inSql(dateTo.Value) &
             additionalCriteria & _
@@ -51,7 +51,7 @@
             "select s.name as stock, so.date as date, 'SO' as doc, so.documentno as docno, " &
             "f.name as filter, -1 * i.quantity as qty, i.price, i.Discount1, i.Discount2, '-1' as Discount3 from salesorderitems i, " &
             "salesorders so, stocks s, customers f where i.salesorderid = so.id " &
-            "and i.stockid = s.id and so.customerid = f.id and so.posteddate is not null " &
+            "and i.stockid = s.id and so.customerid = f.id " &
             " and so.date >= " & Util.inSql(dateFrom.Value) &
             " and so.date <= " & Util.inSql(dateTo.Value) &
             additionalCriteria & _
@@ -61,7 +61,7 @@
             "select s.name as stock, pr.date as date, 'PR' as doc, pr.documentno as docno, " &
             "f.name as filter, - 1 * i.quantity as qty, i.price, i.Discount1, i.Discount2, i.Discount3 from purchasereturnitems i, " &
             "purchasereturns pr, stocks s, suppliers f where i.purchasereturnid = pr.id " &
-            "and i.stockid = s.id and pr.supplierid = f.id and pr.posteddate is not null " &
+            "and i.stockid = s.id and pr.supplierid = f.id " &
             " and pr.date >= " & Util.inSql(dateFrom.Value) &
             " and pr.date <= " & Util.inSql(dateTo.Value) &
             additionalCriteria & _
@@ -71,7 +71,7 @@
             "select s.name as stock, sr.date as date, 'SR' as doc, sr.documentno as docno, " &
             "f.name as filter, i.quantity as qty, i.price, i.Discount1, i.Discount2, '-1' as Discount3 from salesreturnitems i, " &
             "salesreturns sr, stocks s, customers f where i.salesreturnid = sr.id " &
-            "and i.stockid = s.id and sr.customerid = f.id and sr.posteddate is not null " &
+            "and i.stockid = s.id and sr.customerid = f.id " &
             " and sr.date >= " & Util.inSql(dateFrom.Value) &
             " and sr.date <= " & Util.inSql(dateTo.Value) &
             additionalCriteria

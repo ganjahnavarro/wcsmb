@@ -157,15 +157,15 @@
 
         Select Case transactionName.ToUpper
             Case "CUSTOMER COLLECTION"
-                rptQry = "select i.date, i.documentno as docno, o.bank, f.name as filter, i.amount " & _
-                    "from collectioncheckitems i, customercollections o, customers f " & _
-                    "where i.customercollectionid = o.id and o.customerid = f.id and o.posteddate is not null "
+                rptQry = "select i.date, i.documentno as docno, o.bank, f.name as filter, i.amount " &
+                    "from collectioncheckitems i, customercollections o, customers f " &
+                    "where i.customercollectionid = o.id and o.customerid = f.id "
                 Exit Select
 
             Case "SUPPLIER PAYMENT"
-                rptQry = "select i.date, i.documentno as docno, o.bank, f.name as filter, i.amount " & _
-                    "from paymentcheckitems i, supplierpayments o, suppliers f " & _
-                    "where i.supplierpaymentid = o.id and o.supplierid = f.id and o.posteddate is not null "
+                rptQry = "select i.date, i.documentno as docno, o.bank, f.name as filter, i.amount " &
+                    "from paymentcheckitems i, supplierpayments o, suppliers f " &
+                    "where i.supplierpaymentid = o.id and o.supplierid = f.id "
                 Exit Select
         End Select
 
@@ -277,7 +277,7 @@
                 Exit Select
         End Select
 
-        rptQry += " and o.posteddate is not null and o.date >= " & Util.inSql(dateFrom.Value) & _
+        rptQry += " and o.date >= " & Util.inSql(dateFrom.Value) &
                " and o.date <= " & Util.inSql(dateTo.Value)
 
         If Not String.IsNullOrWhiteSpace(tbFilter.Text) Then
@@ -300,32 +300,32 @@
     Private Sub loadWithDetailsQueryString()
         Select Case transactionName.ToUpper
             Case "PURCHASE ORDER"
-                rptQry = "select o.documentno, o.date, f.name as filter, o.totalamount, " & _
-                    "o.discount1, o.discount2, o.discount3, s.name as stock, i.quantity, " & _
-                    "if(i.quantity > 1, u.pluralname, u.name) as unit, i.discount1 as itemdiscount1, " & _
-                    "i.discount2 as itemdiscount2, i.discount3 as itemdiscount3, " & _
-                    "i.price from purchaseorders o, suppliers f, stocks s, units u, " & _
-                    "purchaseorderitems i where i.purchaseorderid = o.id and o.supplierid = f.id " & _
-                    "and i.stockid = s.id and s.unitid = u.id and o.posteddate is not null "
+                rptQry = "select o.documentno, o.date, f.name as filter, o.totalamount, " &
+                    "o.discount1, o.discount2, o.discount3, s.name as stock, i.quantity, " &
+                    "if(i.quantity > 1, u.pluralname, u.name) as unit, i.discount1 as itemdiscount1, " &
+                    "i.discount2 as itemdiscount2, i.discount3 as itemdiscount3, " &
+                    "i.price from purchaseorders o, suppliers f, stocks s, units u, " &
+                    "purchaseorderitems i where i.purchaseorderid = o.id and o.supplierid = f.id " &
+                    "and i.stockid = s.id and s.unitid = u.id "
                 appendFiltersOnQuery()
                 Exit Select
 
             Case "SALES ORDER"
-                rptQry = "select o.documentno, o.date, concat(f.name, ' (', ag.name, ')') as filter, o.totalamount, " & _
-                    "o.discount1, o.discount2, s.name as stock, i.quantity, " & _
-                    "if(i.quantity > 1, u.pluralname, u.name) as unit, i.discount1 as itemdiscount1, " & _
-                    "i.discount2 as itemdiscount2, i.price from salesorders o, agents ag, customers f, " & _
-                    "salesorderitems i, stocks s, units u where i.salesorderid = o.id and " & _
-                    "f.agentid = ag.id and o.customerid = f.id and i.stockid = s.id and s.unitid = u.id and o.posteddate is not null"
+                rptQry = "select o.documentno, o.date, concat(f.name, ' (', ag.name, ')') as filter, o.totalamount, " &
+                    "o.discount1, o.discount2, s.name as stock, i.quantity, " &
+                    "if(i.quantity > 1, u.pluralname, u.name) as unit, i.discount1 as itemdiscount1, " &
+                    "i.discount2 as itemdiscount2, i.price from salesorders o, agents ag, customers f, " &
+                    "salesorderitems i, stocks s, units u where i.salesorderid = o.id and " &
+                    "f.agentid = ag.id and o.customerid = f.id and i.stockid = s.id and s.unitid = u.id "
                 appendFiltersOnQuery()
                 Exit Select
 
             Case "PURCHASE RETURN"
-                rptQry = "select o.documentno, o.date, f.name as filter, o.totalamount, " & _
-                    "s.name as stock, i.quantity, if(i.quantity > 1, u.pluralname, u.name) as unit, " & _
-                    "i.price from purchasereturns o, suppliers f, stocks s, units u, purchasereturnitems i " & _
-                    "where i.purchasereturnid = o.id and o.supplierid = f.id and i.stockid = s.id " & _
-                    "and s.unitid = u.id and o.posteddate is not null"
+                rptQry = "select o.documentno, o.date, f.name as filter, o.totalamount, " &
+                    "s.name as stock, i.quantity, if(i.quantity > 1, u.pluralname, u.name) as unit, " &
+                    "i.price from purchasereturns o, suppliers f, stocks s, units u, purchasereturnitems i " &
+                    "where i.purchasereturnid = o.id and o.supplierid = f.id and i.stockid = s.id " &
+                    "and s.unitid = u.id "
                 appendFiltersOnQuery()
                 Exit Select
 
@@ -334,7 +334,7 @@
                     "s.name as stock, i.quantity, if(i.quantity > 1, u.pluralname, u.name) as unit, " &
                     "i.price from salesreturns o, agents f, customers c, stocks s, units u, salesreturnitems i " &
                     "where i.salesreturnid = o.id and c.agentid = f.id and o.customerid = c.id and i.stockid = s.id " &
-                    "and s.unitid = u.id and o.posteddate is not null"
+                    "and s.unitid = u.id "
                 appendFiltersOnQuery()
                 Exit Select
 

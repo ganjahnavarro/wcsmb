@@ -210,7 +210,8 @@
     End Sub
 
     Public Function getAllowEditDelete() As Boolean Implements IControl.getAllowEditDelete
-        Return If(IsNothing(currentObject) OrElse Not IsNothing(currentObject.PostedDate), False, True)
+        Return If(IsNothing(currentObject) OrElse Not IsNothing(currentObject.
+                                                                Date), False, True)
     End Function
 
     Public Sub enableInputs(enable As Boolean) Implements IControl.enableInputs
@@ -712,7 +713,7 @@
         stockList.Clear()
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from salesorderitems c, salesorders p, customers s " &
-                "where p.posteddate is not null and c.salesorderid = p.id and p.customerid = s.id " &
+                "where c.salesorderid = p.id and p.customerid = s.id " &
                 "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
 
             Dim items As List(Of salesorderitem) = context.salesorderitems.SqlQuery(qry).ToList
@@ -729,7 +730,7 @@
             ByVal name As String, ByVal setFields As Boolean, ByVal rowIndex As Integer)
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from salesorderitems c, salesorders p, customers s " &
-                "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.salesorderid = p.id and p.customerid = s.id " &
+                "where c.stockId = '" & stockId & "' and c.salesorderid = p.id and p.customerid = s.id " &
                 "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
 
             priceList = context.salesorderitems.SqlQuery(qry) _
@@ -759,7 +760,7 @@
             ByVal setFields As Boolean, ByVal rowIndex As Integer)
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from salesorderitems c, salesorders p, customers s " &
-                "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
+                "where c.stockId = '" & stockId & "' and c.price = '" & price &
                 "' and c.salesorderid = p.id and p.customerid = s.id " &
                 "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
 
@@ -792,7 +793,7 @@
            ByVal setFields As Boolean, ByVal rowIndex As Integer)
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from salesorderitems c, salesorders p, customers s " &
-               "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price & "' and c.discount1 = '" & disc1 &
+               "where c.stockId = '" & stockId & "' and c.price = '" & price & "' and c.discount1 = '" & disc1 &
                "' and c.salesorderid = p.id and p.customerid = s.id " &
                "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
 
@@ -828,7 +829,7 @@
         Dim maxQtyOrdered, maxQtyReturned As Integer
         Using context As New DatabaseContext()
             Dim qry As String = "select c.* from salesorderitems c, salesorders p, customers s " &
-               "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
+               "where c.stockId = '" & stockId & "' and c.price = '" & price &
                "' and c.discount1 = '" & disc1 & "' and c.discount2 = '" & disc2 &
                "' and c.salesorderid = p.id and p.customerid = s.id " &
                "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"
@@ -836,7 +837,7 @@
             Dim orderedItems = context.salesorderitems.SqlQuery(qry).ToList
 
             Dim anotherQry As String = "select c.* from salesreturnitems c, salesreturns p, customers s " &
-               "where p.posteddate is not null and c.stockId = '" & stockId & "' and c.price = '" & price &
+               "where c.stockId = '" & stockId & "' and c.price = '" & price &
                "' and c.discount1 = '" & disc1 & "' and c.discount2 = '" & disc2 &
                "' and c.salesreturnid = p.id and p.customerid = s.id " &
                "and ucase(s.name) = '" & name.ToUpper & "' and s.active = true"

@@ -136,7 +136,7 @@
                 "as qtysales, i.price, ((i.quantity - i.quantityreturned) * i.price) as amount " &
                 "from salesorderitems i, salesorders so, stocks s, customers c, units u " &
                 "where i.salesorderid = so.id and i.stockid = s.id and so.customerid = c.id " &
-                "and s.unitid = u.id and so.posteddate is not null " &
+                "and s.unitid = u.id " &
                 " and so.date >= " & Util.inSql(dateFrom.Value) &
                 " and so.date <= " & Util.inSql(dateTo.Value)
 

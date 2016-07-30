@@ -48,6 +48,9 @@ Public MustInherit Class PrintWithHeader : Inherits PrintDocument
             WIDTH_MAX = .Width
         End With
 
+        BOUND_LEFT += 20
+        BOUND_RIGHT -= 20
+
         DATE_STRING = Format(DateTime.Now, "MM/dd/yyyy hh:mm:ss tt")
         init()
     End Sub

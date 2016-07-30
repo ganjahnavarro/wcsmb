@@ -697,7 +697,7 @@
         orderList.Clear()
         Using context As New DatabaseContext()
             Dim qry As String = "select s.* from salesorders s, customers c " &
-                "where s.customerId = c.Id and s.postedDate is not null and ucase(c.Name) = '" _
+                "where s.customerId = c.Id and ucase(c.Name) = '" _
                 & name.ToUpper & "' and c.active = true"
 
             orderList.AddRange(context.salesorders.SqlQuery(qry) _

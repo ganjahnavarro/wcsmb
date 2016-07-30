@@ -33,12 +33,11 @@
         printDoc.report_detail = "From " & dateFrom.Value.ToShortDateString & " To " & dateTo.Value.ToShortDateString
         printDoc.fName = "Supplier"
 
-        Dim qry As String = "select s.name, sum(po.totalamount - (po.totalreturned + po.totalpaid)) as balance " & _
-            " from purchaseorders po, suppliers s where po.supplierid = s.id " & _
-            " and (po.totalamount - (po.totalreturned + po.totalpaid)) > 0 " & _
-            " and po.date >= " & Util.inSql(dateFrom.Value) & _
-            " and po.date <= " & Util.inSql(dateTo.Value) & _
-            " and po.posteddate is not null"
+        Dim qry As String = "select s.name, sum(po.totalamount - (po.totalreturned + po.totalpaid)) as balance " &
+            " from purchaseorders po, suppliers s where po.supplierid = s.id " &
+            " and (po.totalamount - (po.totalreturned + po.totalpaid)) > 0 " &
+            " and po.date >= " & Util.inSql(dateFrom.Value) &
+            " and po.date <= " & Util.inSql(dateTo.Value) & " "
 
         If Not String.IsNullOrWhiteSpace(tbFilter.Text) Then
             qry += " and s.active = true and ucase(s.name) = '" & tbFilter.Text.ToUpper & "'"
@@ -71,8 +70,7 @@
             " from purchaseorders po, suppliers s where po.supplierid = s.id " &
             " and (po.totalamount - (po.totalreturned + po.totalpaid)) > 0 " &
             " and po.date >= " & Util.inSql(dateFrom.Value) &
-            " and po.date <= " & Util.inSql(dateTo.Value) &
-            " and po.posteddate is not null "
+            " and po.date <= " & Util.inSql(dateTo.Value) & " "
 
         If Not String.IsNullOrWhiteSpace(tbFilter.Text) Then
             qry += " and s.active = true and ucase(s.name) = '" & tbFilter.Text.ToUpper & "'"
