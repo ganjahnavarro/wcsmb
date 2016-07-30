@@ -58,7 +58,6 @@
             Controller.updateMode = Constants.UPDATE_MODE_CREATE
             showUpdateButtons(True)
             tbDocNo.Text = getUpdatedDocumentNo()
-            updateCountLabel()
         End If
     End Sub
 
@@ -182,7 +181,6 @@
             Try
                 enterGrid.Rows.RemoveAt(enterGrid.CurrentCell.RowIndex)
                 updateTotalAmount()
-                updateCountLabel()
             Catch ex As Exception
                 For Each cell As DataGridViewCell In enterGrid _
                         .Rows(enterGrid.CurrentCell.RowIndex).Cells()
@@ -231,10 +229,6 @@
         tbTotalAmt.Text = FormatNumber(CDbl(currentObject.TotalAmount), 2)
         tbSupplier.Text = currentObject.supplier.Name
 
-        lblPostedOn.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Text = Format(currentObject.PostedDate, Constants.DATE_FORMAT)
-
         Dim modifiable = If(IsNothing(Controller.updateMode) And IsNothing(currentObject.PostedDate), True, False)
         btnEdit.Visible = modifiable
         btnDelete.Visible = modifiable
@@ -273,15 +267,6 @@
         enterGrid.Columns.Item("Disc1").Visible = hasDisc1
         enterGrid.Columns.Item("Disc2").Visible = hasDisc2
         enterGrid.Columns.Item("Disc3").Visible = hasDisc3
-        updateCountLabel()
-    End Sub
-
-    Private Sub updateCountLabel()
-        lblCount.Text = enterGrid.Rows.Count - 1
-    End Sub
-
-    Private Sub enterGrid_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles enterGrid.UserAddedRow
-        updateCountLabel()
     End Sub
 
     Public Sub deleteObject() Implements IControl.deleteObject
@@ -296,19 +281,6 @@
             context.activities.Add(New activity(action))
 
             context.SaveChanges()
-        End Using
-
-        'trash
-        Using context As New DatabaseContext()
-            Dim trashItemAction = "delete from purchasereturnitems where purchasereturnid in " &
-                " (select id from purchasereturns where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
-
-            Dim trashAction = "delete from purchasereturns where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
-
-            context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date," &
-                " '" & trashItemAction & ";" & trashAction & "')")
         End Using
 
         currentObject = Nothing
@@ -348,8 +320,6 @@
     Public Sub reset() Implements IControl.reset
         lblBy.Visible = False
         lblOn.Visible = False
-        lblPostedDate.Visible = False
-        lblPostedOn.Visible = False
 
         tbDocNo.Text = String.Empty
         tbRemarks.Text = String.Empty

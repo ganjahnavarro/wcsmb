@@ -186,19 +186,6 @@
             context.SaveChanges()
         End Using
 
-        'trash
-        Using context As New DatabaseContext()
-            Dim trashItemAction = "delete from purchaseorderitems where purchaseorderid in " &
-                " (select id from purchaseorders where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
-
-            Dim trashAction = "delete from purchaseorders where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
-
-            context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date," &
-                " '" & trashItemAction & ";" & trashAction & "')")
-        End Using
-
         currentObject = Nothing
     End Sub
 
@@ -320,8 +307,6 @@
     Public Sub reset() Implements IControl.reset
         lblBy.Visible = False
         lblOn.Visible = False
-        lblPostedDate.Visible = False
-        lblPostedOn.Visible = False
 
         tbDocNo.Text = String.Empty
         tbRemarks.Text = String.Empty
@@ -445,10 +430,6 @@
         docDate.Value = currentObject.Date
         tbTotalAmt.Text = FormatNumber(CDbl(currentObject.TotalAmount), 2)
         tbSupplier.Text = currentObject.supplier.Name
-
-        lblPostedOn.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Text = Format(currentObject.PostedDate, Constants.DATE_FORMAT)
 
         Dim modifiable = If(IsNothing(Controller.updateMode) And IsNothing(currentObject.PostedDate), True, False)
         btnEdit.Visible = modifiable
@@ -836,6 +817,86 @@
     End Sub
 
     Private Sub enterGrid_CellClick(sender As Object, e As DataGridViewCellEventArgs)
+
+    End Sub
+
+    Private Sub Panel1_Paint(sender As Object, e As PaintEventArgs) Handles Panel1.Paint
+
+    End Sub
+
+    Private Sub enterGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles enterGrid.CellContentClick
+
+    End Sub
+
+    Private Sub tbTotalAmt_TextChanged(sender As Object, e As EventArgs) Handles tbTotalAmt.TextChanged
+
+    End Sub
+
+    Private Sub lblPostedDate_Click(sender As Object, e As EventArgs) 
+
+    End Sub
+
+    Private Sub lblPostedOn_Click(sender As Object, e As EventArgs) 
+
+    End Sub
+
+    Private Sub Label3_Click(sender As Object, e As EventArgs) Handles Label3.Click
+
+    End Sub
+
+    Private Sub tbRemarks_TextChanged(sender As Object, e As EventArgs) Handles tbRemarks.TextChanged
+
+    End Sub
+
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
+
+    End Sub
+
+    Private Sub docDate_ValueChanged(sender As Object, e As EventArgs) Handles docDate.ValueChanged
+
+    End Sub
+
+    Private Sub tbDocNo_TextChanged(sender As Object, e As EventArgs) Handles tbDocNo.TextChanged
+
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
+
+    End Sub
+
+    Private Sub lblUnitName_Click(sender As Object, e As EventArgs) Handles lblUnitName.Click
+
+    End Sub
+
+    Private Sub lblOn_Click(sender As Object, e As EventArgs) Handles lblOn.Click
+
+    End Sub
+
+    Private Sub lblBy_Click(sender As Object, e As EventArgs) Handles lblBy.Click
+
+    End Sub
+
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+
+    End Sub
+
+    Private Sub tbSupplier_TextChanged(sender As Object, e As EventArgs) Handles tbSupplier.TextChanged
+
+    End Sub
+
+    Private Sub notificationPanel_Paint(sender As Object, e As PaintEventArgs) Handles notificationPanel.Paint
+
+    End Sub
+
+    Private Sub notificationClose_Click(sender As Object, e As EventArgs) Handles notificationClose.Click
+
+    End Sub
+
+    Private Sub notificationLabel_Click(sender As Object, e As EventArgs) Handles notificationLabel.Click
+
+    End Sub
+
+    Private Sub stockDescription_Click(sender As Object, e As EventArgs) Handles stockDescription.Click
 
     End Sub
 End Class

@@ -38,10 +38,8 @@ Partial Class TransPR
         Me.btnDelete = New System.Windows.Forms.PictureBox()
         Me.btnCancel = New System.Windows.Forms.PictureBox()
         Me.btnCheck = New System.Windows.Forms.PictureBox()
-        Me.lblPostedOn = New System.Windows.Forms.Label()
         Me.lblOn = New System.Windows.Forms.Label()
         Me.lblBy = New System.Windows.Forms.Label()
-        Me.lblPostedDate = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.enterGrid = New wcsmb.EnterDataGridView()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -57,8 +55,6 @@ Partial Class TransPR
         Me.notificationPanel = New System.Windows.Forms.Panel()
         Me.notificationClose = New System.Windows.Forms.Label()
         Me.notificationLabel = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
-        Me.lblCount = New System.Windows.Forms.Label()
         Me.stockDescription = New System.Windows.Forms.Label()
         Me.ButtonsPanel.SuspendLayout()
         CType(Me.btnPrint, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -86,7 +82,7 @@ Partial Class TransPR
         Me.ButtonsPanel.Controls.Add(Me.btnEdit)
         Me.ButtonsPanel.Controls.Add(Me.btnDelete)
         Me.ButtonsPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.ButtonsPanel.Location = New System.Drawing.Point(644, 684)
+        Me.ButtonsPanel.Location = New System.Drawing.Point(423, 553)
         Me.ButtonsPanel.Name = "ButtonsPanel"
         Me.ButtonsPanel.Size = New System.Drawing.Size(378, 46)
         Me.ButtonsPanel.TabIndex = 127
@@ -179,7 +175,7 @@ Partial Class TransPR
         '
         Me.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnCancel.Image = Global.wcsmb.My.Resources.Resources.delete
-        Me.btnCancel.Location = New System.Drawing.Point(977, 684)
+        Me.btnCancel.Location = New System.Drawing.Point(756, 553)
         Me.btnCancel.Margin = New System.Windows.Forms.Padding(4, 0, 0, 0)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(45, 45)
@@ -191,7 +187,7 @@ Partial Class TransPR
         '
         Me.btnCheck.Cursor = System.Windows.Forms.Cursors.Hand
         Me.btnCheck.Image = Global.wcsmb.My.Resources.Resources.checkmark
-        Me.btnCheck.Location = New System.Drawing.Point(928, 684)
+        Me.btnCheck.Location = New System.Drawing.Point(707, 553)
         Me.btnCheck.Margin = New System.Windows.Forms.Padding(4, 0, 0, 0)
         Me.btnCheck.Name = "btnCheck"
         Me.btnCheck.Size = New System.Drawing.Size(45, 45)
@@ -199,24 +195,12 @@ Partial Class TransPR
         Me.btnCheck.TabIndex = 46
         Me.btnCheck.TabStop = False
         '
-        'lblPostedOn
-        '
-        Me.lblPostedOn.AutoSize = True
-        Me.lblPostedOn.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.lblPostedOn.ForeColor = System.Drawing.Color.Green
-        Me.lblPostedOn.Location = New System.Drawing.Point(154, 706)
-        Me.lblPostedOn.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblPostedOn.Name = "lblPostedOn"
-        Me.lblPostedOn.Size = New System.Drawing.Size(92, 23)
-        Me.lblPostedOn.TabIndex = 130
-        Me.lblPostedOn.Text = "Posted on"
-        '
         'lblOn
         '
         Me.lblOn.AutoSize = True
         Me.lblOn.Font = New System.Drawing.Font("Tahoma", 12.0!)
         Me.lblOn.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblOn.Location = New System.Drawing.Point(16, 711)
+        Me.lblOn.Location = New System.Drawing.Point(16, 578)
         Me.lblOn.Name = "lblOn"
         Me.lblOn.Size = New System.Drawing.Size(107, 19)
         Me.lblOn.TabIndex = 129
@@ -227,33 +211,21 @@ Partial Class TransPR
         Me.lblBy.AutoSize = True
         Me.lblBy.Font = New System.Drawing.Font("Tahoma", 12.0!)
         Me.lblBy.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.lblBy.Location = New System.Drawing.Point(20, 684)
+        Me.lblBy.Location = New System.Drawing.Point(20, 551)
         Me.lblBy.Name = "lblBy"
         Me.lblBy.Size = New System.Drawing.Size(87, 19)
         Me.lblBy.TabIndex = 128
         Me.lblBy.Text = "By: Ganjah"
-        '
-        'lblPostedDate
-        '
-        Me.lblPostedDate.AutoSize = True
-        Me.lblPostedDate.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.lblPostedDate.ForeColor = System.Drawing.Color.Green
-        Me.lblPostedDate.Location = New System.Drawing.Point(242, 706)
-        Me.lblPostedDate.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.lblPostedDate.Name = "lblPostedDate"
-        Me.lblPostedDate.Size = New System.Drawing.Size(104, 23)
-        Me.lblPostedDate.TabIndex = 131
-        Me.lblPostedDate.Text = "12/10/2014"
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.MediumSeaGreen
         Me.Panel1.Controls.Add(Me.enterGrid)
         Me.Panel1.Font = New System.Drawing.Font("Tahoma", 13.0!)
-        Me.Panel1.Location = New System.Drawing.Point(20, 250)
+        Me.Panel1.Location = New System.Drawing.Point(20, 221)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Padding = New System.Windows.Forms.Padding(1)
-        Me.Panel1.Size = New System.Drawing.Size(993, 418)
+        Me.Panel1.Size = New System.Drawing.Size(764, 311)
         Me.Panel1.TabIndex = 132
         '
         'enterGrid
@@ -305,14 +277,14 @@ Partial Class TransPR
         Me.enterGrid.RowsDefaultCellStyle = DataGridViewCellStyle5
         Me.enterGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.enterGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.enterGrid.Size = New System.Drawing.Size(975, 428)
+        Me.enterGrid.Size = New System.Drawing.Size(754, 301)
         Me.enterGrid.TabIndex = 144
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(597, 98)
+        Me.Label4.Location = New System.Drawing.Point(557, 133)
         Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(122, 23)
@@ -323,7 +295,7 @@ Partial Class TransPR
         '
         Me.tbTotalAmt.Enabled = False
         Me.tbTotalAmt.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbTotalAmt.Location = New System.Drawing.Point(730, 95)
+        Me.tbTotalAmt.Location = New System.Drawing.Point(561, 159)
         Me.tbTotalAmt.Name = "tbTotalAmt"
         Me.tbTotalAmt.Size = New System.Drawing.Size(182, 32)
         Me.tbTotalAmt.TabIndex = 138
@@ -333,7 +305,7 @@ Partial Class TransPR
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(106, 140)
+        Me.Label3.Location = New System.Drawing.Point(66, 133)
         Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(82, 23)
@@ -343,17 +315,17 @@ Partial Class TransPR
         'tbRemarks
         '
         Me.tbRemarks.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbRemarks.Location = New System.Drawing.Point(216, 140)
+        Me.tbRemarks.Location = New System.Drawing.Point(176, 133)
         Me.tbRemarks.Multiline = True
         Me.tbRemarks.Name = "tbRemarks"
-        Me.tbRemarks.Size = New System.Drawing.Size(696, 71)
+        Me.tbRemarks.Size = New System.Drawing.Size(361, 58)
         Me.tbRemarks.TabIndex = 139
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(670, 54)
+        Me.Label2.Location = New System.Drawing.Point(557, 48)
         Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(49, 23)
@@ -365,7 +337,7 @@ Partial Class TransPR
         Me.docDate.CustomFormat = ""
         Me.docDate.Font = New System.Drawing.Font("Tahoma", 15.0!)
         Me.docDate.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.docDate.Location = New System.Drawing.Point(730, 51)
+        Me.docDate.Location = New System.Drawing.Point(561, 83)
         Me.docDate.MaxDate = New Date(2999, 12, 31, 0, 0, 0, 0)
         Me.docDate.MinDate = New Date(1990, 1, 1, 0, 0, 0, 0)
         Me.docDate.Name = "docDate"
@@ -376,7 +348,7 @@ Partial Class TransPR
         '
         Me.tbDocNo.Enabled = False
         Me.tbDocNo.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbDocNo.Location = New System.Drawing.Point(216, 51)
+        Me.tbDocNo.Location = New System.Drawing.Point(176, 44)
         Me.tbDocNo.Name = "tbDocNo"
         Me.tbDocNo.Size = New System.Drawing.Size(361, 32)
         Me.tbDocNo.TabIndex = 135
@@ -386,7 +358,7 @@ Partial Class TransPR
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(106, 99)
+        Me.Label1.Location = New System.Drawing.Point(66, 92)
         Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(79, 23)
@@ -398,7 +370,7 @@ Partial Class TransPR
         Me.lblUnitName.AutoSize = True
         Me.lblUnitName.Font = New System.Drawing.Font("Tahoma", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblUnitName.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblUnitName.Location = New System.Drawing.Point(106, 55)
+        Me.lblUnitName.Location = New System.Drawing.Point(66, 48)
         Me.lblUnitName.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblUnitName.Name = "lblUnitName"
         Me.lblUnitName.Size = New System.Drawing.Size(67, 23)
@@ -408,7 +380,7 @@ Partial Class TransPR
         'tbSupplier
         '
         Me.tbSupplier.Font = New System.Drawing.Font("Tahoma", 15.0!)
-        Me.tbSupplier.Location = New System.Drawing.Point(216, 95)
+        Me.tbSupplier.Location = New System.Drawing.Point(176, 88)
         Me.tbSupplier.Name = "tbSupplier"
         Me.tbSupplier.Size = New System.Drawing.Size(361, 32)
         Me.tbSupplier.TabIndex = 136
@@ -419,7 +391,7 @@ Partial Class TransPR
         Me.notificationPanel.BackColor = System.Drawing.Color.LightSlateGray
         Me.notificationPanel.Controls.Add(Me.notificationClose)
         Me.notificationPanel.Controls.Add(Me.notificationLabel)
-        Me.notificationPanel.Location = New System.Drawing.Point(246, 7)
+        Me.notificationPanel.Location = New System.Drawing.Point(132, 8)
         Me.notificationPanel.Name = "notificationPanel"
         Me.notificationPanel.Size = New System.Drawing.Size(558, 38)
         Me.notificationPanel.TabIndex = 143
@@ -448,34 +420,12 @@ Partial Class TransPR
         Me.notificationLabel.Text = "Notification"
         Me.notificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Font = New System.Drawing.Font("Tahoma", 14.0!)
-        Me.Label8.ForeColor = System.Drawing.Color.Gray
-        Me.Label8.Location = New System.Drawing.Point(977, 3)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(54, 23)
-        Me.Label8.TabIndex = 145
-        Me.Label8.Text = "items"
-        '
-        'lblCount
-        '
-        Me.lblCount.Font = New System.Drawing.Font("Tahoma", 22.0!)
-        Me.lblCount.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblCount.Location = New System.Drawing.Point(977, 26)
-        Me.lblCount.Name = "lblCount"
-        Me.lblCount.Size = New System.Drawing.Size(56, 39)
-        Me.lblCount.TabIndex = 144
-        Me.lblCount.Text = "0"
-        Me.lblCount.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'stockDescription
         '
         Me.stockDescription.AutoSize = True
         Me.stockDescription.Font = New System.Drawing.Font("Tahoma", 12.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.stockDescription.ForeColor = System.Drawing.Color.SeaGreen
-        Me.stockDescription.Location = New System.Drawing.Point(19, 222)
+        Me.stockDescription.Location = New System.Drawing.Point(19, 193)
         Me.stockDescription.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.stockDescription.Name = "stockDescription"
         Me.stockDescription.Size = New System.Drawing.Size(139, 21)
@@ -487,10 +437,8 @@ Partial Class TransPR
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(1034, 741)
+        Me.ClientSize = New System.Drawing.Size(813, 612)
         Me.Controls.Add(Me.stockDescription)
-        Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.lblCount)
         Me.Controls.Add(Me.notificationPanel)
         Me.Controls.Add(Me.tbSupplier)
         Me.Controls.Add(Me.btnCancel)
@@ -505,10 +453,8 @@ Partial Class TransPR
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.lblUnitName)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.lblPostedOn)
         Me.Controls.Add(Me.lblOn)
         Me.Controls.Add(Me.lblBy)
-        Me.Controls.Add(Me.lblPostedDate)
         Me.Controls.Add(Me.ButtonsPanel)
         Me.Font = New System.Drawing.Font("Tahoma", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -546,10 +492,8 @@ Partial Class TransPR
     Friend WithEvents btnSearch As System.Windows.Forms.PictureBox
     Friend WithEvents btnCancel As System.Windows.Forms.PictureBox
     Friend WithEvents btnCheck As System.Windows.Forms.PictureBox
-    Friend WithEvents lblPostedOn As System.Windows.Forms.Label
     Friend WithEvents lblOn As System.Windows.Forms.Label
     Friend WithEvents lblBy As System.Windows.Forms.Label
-    Friend WithEvents lblPostedDate As System.Windows.Forms.Label
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents tbTotalAmt As System.Windows.Forms.TextBox
@@ -566,7 +510,5 @@ Partial Class TransPR
     Friend WithEvents notificationLabel As System.Windows.Forms.Label
     Friend WithEvents enterGrid As wcsmb.EnterDataGridView
     Friend WithEvents btnPrint As System.Windows.Forms.PictureBox
-    Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents lblCount As System.Windows.Forms.Label
     Friend WithEvents stockDescription As Label
 End Class

@@ -62,7 +62,6 @@
             Me.enableInputs(True)
             Controller.updateMode = Constants.UPDATE_MODE_CREATE
             showUpdateButtons(True)
-            updateCountLabel()
         End If
     End Sub
 
@@ -184,7 +183,6 @@
             Try
                 enterGrid.Rows.RemoveAt(enterGrid.CurrentCell.RowIndex)
                 updateTotalAmount()
-                updateCountLabel()
             Catch ex As Exception
                 For Each cell As DataGridViewCell In enterGrid _
                         .Rows(enterGrid.CurrentCell.RowIndex).Cells()
@@ -206,19 +204,6 @@
             context.activities.Add(New activity(action))
 
             context.SaveChanges()
-        End Using
-
-        'trash
-        Using context As New DatabaseContext()
-            Dim trashItemAction = "delete from salesreturnitems where salesreturnid in " &
-                " (select id from salesreturns where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
-
-            Dim trashAction = "delete from salesreturns where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
-
-            context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date," &
-                " '" & trashItemAction & ";" & trashAction & "')")
         End Using
 
         currentObject = Nothing
@@ -349,8 +334,6 @@
     Public Sub reset() Implements IControl.reset
         lblBy.Visible = False
         lblOn.Visible = False
-        lblPostedDate.Visible = False
-        lblPostedOn.Visible = False
 
         tbRemarks.Text = String.Empty
         tbTotalAmt.Text = String.Empty
@@ -480,10 +463,6 @@
         tbCustomer.Text = currentObject.customer.Name
         tbAgent.Text = currentObject.agent.Name
 
-        lblPostedOn.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Text = Format(currentObject.PostedDate, Constants.DATE_FORMAT)
-
         Dim modifiable = If(IsNothing(Controller.updateMode) And IsNothing(currentObject.PostedDate), True, False)
         btnEdit.Visible = modifiable
         btnDelete.Visible = modifiable
@@ -515,15 +494,6 @@
 
         enterGrid.Columns.Item("Disc1").Visible = hasDisc1
         enterGrid.Columns.Item("Disc2").Visible = hasDisc2
-        updateCountLabel()
-    End Sub
-
-    Private Sub updateCountLabel()
-        lblCount.Text = enterGrid.Rows.Count - 1
-    End Sub
-
-    Private Sub enterGrid_UserAddedRow(sender As Object, e As DataGridViewRowEventArgs) Handles enterGrid.UserAddedRow
-        updateCountLabel()
     End Sub
 
     Private Sub setObjectItemsValues(ByRef context As DatabaseContext)
@@ -1092,4 +1062,11 @@
         enterGrid.Columns.Item("Amount").ReadOnly = True
     End Sub
 
+    Private Sub cancelClick(sender As Object, e As EventArgs) Handles btnCancel.Click
+
+    End Sub
+
+    Private Sub enterGrid_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles enterGrid.CellContentClick
+
+    End Sub
 End Class

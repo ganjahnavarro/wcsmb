@@ -204,19 +204,6 @@
             context.SaveChanges()
         End Using
 
-        'trash
-        Using context As New DatabaseContext()
-            Dim trashItemAction = "delete from salesorderitems where salesorderid in " &
-                " (select id from salesorders where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
-
-            Dim trashAction = "delete from salesorders where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
-
-            context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date," &
-                " '" & trashItemAction & ";" & trashAction & "')")
-        End Using
-
         currentObject = Nothing
     End Sub
 
@@ -338,8 +325,6 @@
     Public Sub reset() Implements IControl.reset
         lblBy.Visible = False
         lblOn.Visible = False
-        lblPostedDate.Visible = False
-        lblPostedOn.Visible = False
 
         tbRemarks.Text = String.Empty
         tbTotalAmt.Text = String.Empty
@@ -492,10 +477,6 @@
 
         tbCustomer.Text = currentObject.customer.Name
         tbAgent.Text = currentObject.agent.Name
-
-        lblPostedOn.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Text = Format(currentObject.PostedDate, Constants.DATE_FORMAT)
 
         Dim modifiable = If(IsNothing(Controller.updateMode) And IsNothing(currentObject.PostedDate), True, False)
         btnEdit.Visible = modifiable

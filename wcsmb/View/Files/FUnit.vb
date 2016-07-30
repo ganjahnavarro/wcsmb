@@ -141,13 +141,6 @@
             context.SaveChanges()
         End Using
 
-        'trash
-        Using context As New DatabaseContext()
-            Dim trashAction = "update units set active = false where name = ''" & currentObject.Name & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
-            context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date, '" & trashAction & "')")
-        End Using
-
         currentObject = Nothing
     End Sub
 

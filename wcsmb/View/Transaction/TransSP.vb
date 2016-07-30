@@ -239,23 +239,6 @@
             context.SaveChanges()
         End Using
 
-        'trash
-        Using context As New DatabaseContext()
-            Dim trashItemActionA = "delete from paymentcheckitems where supplierpaymentid in " &
-                " (select id from supplierpayments where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
-
-            Dim trashItemActionB = "delete from paymentorderitems where supplierpaymentid in " &
-                " (select id from supplierpayments where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "'')"
-
-            Dim trashAction = "delete from supplierpayments where documentno = ''" & currentObject.DocumentNo & "''" &
-                " and modifydate <= ''" & DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & "''"
-
-            context.Database.ExecuteSqlCommand("insert into trash(date, action) values(current_date," &
-                " '" & trashItemActionA & ";" & trashItemActionB & ";" & trashAction & "')")
-        End Using
-
         currentObject = Nothing
     End Sub
 
@@ -478,10 +461,6 @@
         tbSupplier.Text = currentObject.supplier.Name
         tbDocNo.Text = currentObject.DocumentNo
 
-        lblPostedOn.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Visible = If(IsNothing(currentObject.PostedDate), False, True)
-        lblPostedDate.Text = Format(currentObject.PostedDate, Constants.DATE_FORMAT)
-
         Dim modifiable = If(IsNothing(Controller.updateMode) And IsNothing(currentObject.PostedDate), True, False)
         btnEdit.Visible = modifiable
         btnDelete.Visible = modifiable
@@ -522,8 +501,6 @@
     Public Sub reset() Implements IControl.reset
         lblBy.Visible = False
         lblOn.Visible = False
-        lblPostedDate.Visible = False
-        lblPostedOn.Visible = False
 
         tbDocNo.Text = String.Empty
         tbRemarks.Text = String.Empty

@@ -31,7 +31,7 @@
     Public Shared SHOW_ACTION As Integer = 1
     Public Shared SHOW_ALL As Integer = 2
 
-    Public Shared COMPANY_NAME As String = "BIGIE MULTI SALES INC."
+    Public Shared COMPANY_NAME As String = "Willy Chua SMB."
     Public Shared RECEIVED_BY = "Received By: _________________________"
     'KK9YEcAvwSn3hXpz
 

@@ -502,7 +502,7 @@ Partial Class Controller
         Me.lblPriceList.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lblPriceList.Font = New System.Drawing.Font("Tahoma", 15.75!)
         Me.lblPriceList.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
-        Me.lblPriceList.Location = New System.Drawing.Point(348, 95)
+        Me.lblPriceList.Location = New System.Drawing.Point(336, 108)
         Me.lblPriceList.Name = "lblPriceList"
         Me.lblPriceList.Size = New System.Drawing.Size(96, 25)
         Me.lblPriceList.TabIndex = 15
@@ -515,11 +515,11 @@ Partial Class Controller
         Me.lblFAgent.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lblFAgent.Font = New System.Drawing.Font("Tahoma", 15.75!)
         Me.lblFAgent.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
-        Me.lblFAgent.Location = New System.Drawing.Point(486, 74)
+        Me.lblFAgent.Location = New System.Drawing.Point(483, 108)
         Me.lblFAgent.Name = "lblFAgent"
-        Me.lblFAgent.Size = New System.Drawing.Size(106, 25)
+        Me.lblFAgent.Size = New System.Drawing.Size(76, 25)
         Me.lblFAgent.TabIndex = 13
-        Me.lblFAgent.Text = "Agent File"
+        Me.lblFAgent.Text = "Agents"
         Me.lblFAgent.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblFCust
@@ -528,11 +528,11 @@ Partial Class Controller
         Me.lblFCust.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lblFCust.Font = New System.Drawing.Font("Tahoma", 15.75!)
         Me.lblFCust.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
-        Me.lblFCust.Location = New System.Drawing.Point(452, 20)
+        Me.lblFCust.Location = New System.Drawing.Point(469, 48)
         Me.lblFCust.Name = "lblFCust"
-        Me.lblFCust.Size = New System.Drawing.Size(140, 25)
+        Me.lblFCust.Size = New System.Drawing.Size(110, 25)
         Me.lblFCust.TabIndex = 14
-        Me.lblFCust.Text = "Customer File"
+        Me.lblFCust.Text = "Customers"
         Me.lblFCust.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'imgFiles
@@ -554,11 +554,11 @@ Partial Class Controller
         Me.lblFUnit.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lblFUnit.Font = New System.Drawing.Font("Tahoma", 15.75!)
         Me.lblFUnit.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
-        Me.lblFUnit.Location = New System.Drawing.Point(503, 128)
+        Me.lblFUnit.Location = New System.Drawing.Point(180, 130)
         Me.lblFUnit.Name = "lblFUnit"
-        Me.lblFUnit.Size = New System.Drawing.Size(89, 25)
+        Me.lblFUnit.Size = New System.Drawing.Size(59, 25)
         Me.lblFUnit.TabIndex = 12
-        Me.lblFUnit.Text = "Unit File"
+        Me.lblFUnit.Text = "Units"
         Me.lblFUnit.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblFCtgr
@@ -567,11 +567,11 @@ Partial Class Controller
         Me.lblFCtgr.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lblFCtgr.Font = New System.Drawing.Font("Tahoma", 15.75!)
         Me.lblFCtgr.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
-        Me.lblFCtgr.Location = New System.Drawing.Point(180, 128)
+        Me.lblFCtgr.Location = New System.Drawing.Point(180, 78)
         Me.lblFCtgr.Name = "lblFCtgr"
-        Me.lblFCtgr.Size = New System.Drawing.Size(134, 25)
+        Me.lblFCtgr.Size = New System.Drawing.Size(110, 25)
         Me.lblFCtgr.TabIndex = 9
-        Me.lblFCtgr.Text = "Category File"
+        Me.lblFCtgr.Text = "Categories"
         Me.lblFCtgr.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblFSupp
@@ -580,11 +580,11 @@ Partial Class Controller
         Me.lblFSupp.Cursor = System.Windows.Forms.Cursors.Hand
         Me.lblFSupp.Font = New System.Drawing.Font("Tahoma", 15.75!)
         Me.lblFSupp.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
-        Me.lblFSupp.Location = New System.Drawing.Point(180, 74)
+        Me.lblFSupp.Location = New System.Drawing.Point(334, 48)
         Me.lblFSupp.Name = "lblFSupp"
-        Me.lblFSupp.Size = New System.Drawing.Size(128, 25)
+        Me.lblFSupp.Size = New System.Drawing.Size(98, 25)
         Me.lblFSupp.TabIndex = 10
-        Me.lblFSupp.Text = "Supplier File"
+        Me.lblFSupp.Text = "Suppliers"
         Me.lblFSupp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblFStock
@@ -595,9 +595,9 @@ Partial Class Controller
         Me.lblFStock.ForeColor = System.Drawing.Color.FromArgb(CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer), CType(CType(25, Byte), Integer))
         Me.lblFStock.Location = New System.Drawing.Point(180, 20)
         Me.lblFStock.Name = "lblFStock"
-        Me.lblFStock.Size = New System.Drawing.Size(170, 25)
+        Me.lblFStock.Size = New System.Drawing.Size(71, 25)
         Me.lblFStock.TabIndex = 11
-        Me.lblFStock.Text = "Stock Master File"
+        Me.lblFStock.Text = "Stocks"
         Me.lblFStock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'topPanel
