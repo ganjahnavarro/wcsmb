@@ -265,10 +265,6 @@
         setReadOnlyColumns()
 
         If enable Then
-            Using context As New DatabaseContext()
-                tbDocNo.Text = getUpdatedDocumentNo(context)
-            End Using
-
             tbCustomer.Focus()
             enterGridChecks.ClearSelection()
             enterGridOrders.ClearSelection()
@@ -469,12 +465,6 @@
             currentObject = New customercollection
             setObjectValues(context)
 
-            Dim counter = context.counters.Where(Function(c) _
-                c.Owner.Equals(Constants.OWNER_NAME_CUSTOMER_COLLECTION)) _
-               .SingleOrDefault()
-
-            counter.Count += 1
-
             Dim action As String = Controller.currentUser.Username & " created a customer collection (" &
                    currentObject.DocumentNo & ")"
             context.activities.Add(New activity(action))
@@ -491,10 +481,6 @@
 
     Public Sub setObjectValues(ByRef context As DatabaseContext)
         updateTotalAmount()
-
-        If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) Then
-            currentObject.DocumentNo = getUpdatedDocumentNo(context)
-        End If
 
         currentObject.Date = docDate.Value
         currentObject.Remarks = tbRemarks.Text
@@ -517,17 +503,6 @@
 
         setObjectItemsValues(context)
     End Sub
-
-    Private Function getUpdatedDocumentNo(ByRef context As DatabaseContext) As String
-        Dim counter = context.counters.Where(Function(c) _
-               c.Owner.Equals(Constants.OWNER_NAME_CUSTOMER_COLLECTION)).FirstOrDefault
-
-        If Not IsNothing(counter) Then
-            Return Util.getFormattedDocumentNo(counter.Prefix, counter.Count)
-        End If
-
-        Return Nothing
-    End Function
 
     Private Sub setObjectItemsValues(ByRef context As DatabaseContext)
         setCheckItemsValues(context)

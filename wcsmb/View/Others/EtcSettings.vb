@@ -13,10 +13,6 @@
     End Sub
 
     Private Sub loadValues()
-        Using context As New DatabaseContext()
-            counters = context.counters.ToDictionary(Function(c) c.Prefix, Function(c) c)
-        End Using
-
         counterSODR.Text = If(counters.ContainsKey("DR"), counters.Item("DR").Count, "Error getting value.")
         counterSOPO.Text = If(counters.ContainsKey("PO"), counters.Item("PO").Count, "Error getting value.")
         counterSORF.Text = If(counters.ContainsKey("RF"), counters.Item("RF").Count, "Error getting value.")
@@ -60,8 +56,6 @@
 
     Private Sub saveChanges()
         Using context As New DatabaseContext()
-            counters = context.counters.ToDictionary(Function(c) c.Prefix, Function(c) c)
-
             counters.Item("DR").Count = counterSODR.Text
             counters.Item("RF").Count = counterSORF.Text
             counters.Item("SI").Count = counterSOSI.Text

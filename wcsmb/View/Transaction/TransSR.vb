@@ -223,7 +223,6 @@
         setReadOnlyColumns()
 
         If enable Then
-            tbDocNo.Text = getUpdatedDocumentNo()
             tbCustomer.Focus()
             enterGrid.ClearSelection()
 
@@ -231,19 +230,6 @@
             enterGrid.Columns.Item("Disc2").Visible = True
         End If
     End Sub
-
-    Private Function getUpdatedDocumentNo() As String
-        Using context As New DatabaseContext()
-            Dim counter = context.counters.Where(Function(c) _
-               c.Owner.Equals(Constants.OWNER_NAME_SALES_RETURN)).FirstOrDefault
-
-            If Not IsNothing(counter) Then
-                Return Util.getFormattedDocumentNo(counter.Prefix, counter.Count)
-            End If
-        End Using
-
-        Return Nothing
-    End Function
 
     Public Sub loadObject() Implements IControl.loadObject
         Using context As New DatabaseContext()
@@ -349,11 +335,6 @@
             currentObject = New salesreturn
             setObjectValues(context)
 
-            Dim counter = context.counters.Where(Function(c) _
-            c.Owner.Equals(Constants.OWNER_NAME_SALES_RETURN)) _
-                .SingleOrDefault()
-            counter.Count += 1
-
             context.salesreturns.Add(currentObject)
 
             Dim action As String = Controller.currentUser.Username & " created a sales return (" &
@@ -371,10 +352,6 @@
 
     Public Sub setObjectValues(ByRef context As DatabaseContext)
         updateTotalAmount()
-
-        If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) Then
-            currentObject.DocumentNo = getUpdatedDocumentNo()
-        End If
 
         currentObject.Date = docDate.Value
 

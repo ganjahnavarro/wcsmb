@@ -308,7 +308,6 @@
         setReadOnlyColumns()
 
         If enable Then
-            tbDocNo.Text = getUpdatedDocumentNo()
             tbSupplier.Focus()
             enterGridChecks.ClearSelection()
             enterGridOrders.ClearSelection()
@@ -317,20 +316,6 @@
         addItems.Visible = If(enable AndAlso Not IsNothing(Controller.updateMode) _
             AndAlso Controller.updateMode.Equals(Constants.UPDATE_MODE_EDIT), True, False)
     End Sub
-
-    Private Function getUpdatedDocumentNo() As String
-        Using context As New DatabaseContext()
-            Dim counter = context.counters.Where(Function(c) _
-               c.Owner.Equals(Constants.OWNER_NAME_SUPPLIER_PAYMENT)).FirstOrDefault
-
-            If Not IsNothing(counter) Then
-                Return Util.getFormattedDocumentNo(counter.Prefix, counter.Count)
-            End If
-        End Using
-
-        Return Nothing
-    End Function
-
     Public Sub nextObject() Implements IControl.nextObject
         If IsNothing(currentObject) Then
             Exit Sub
@@ -522,11 +507,6 @@
             currentObject = New supplierpayment
             setObjectValues(context)
 
-            Dim counter = context.counters.Where(Function(c) _
-            c.Owner.Equals(Constants.OWNER_NAME_SUPPLIER_PAYMENT)) _
-                .SingleOrDefault()
-            counter.Count += 1
-
             context.supplierpayments.Add(currentObject)
 
             Dim action As String = Controller.currentUser.Username & " created a supplier payment (" &
@@ -544,10 +524,6 @@
 
     Public Sub setObjectValues(ByRef context As DatabaseContext)
         updateTotalAmount()
-
-        If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) Then
-            currentObject.DocumentNo = getUpdatedDocumentNo()
-        End If
 
         currentObject.Date = docDate.Value
         currentObject.Remarks = tbRemarks.Text

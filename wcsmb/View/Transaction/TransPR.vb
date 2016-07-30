@@ -57,7 +57,6 @@
             Me.enableInputs(True)
             Controller.updateMode = Constants.UPDATE_MODE_CREATE
             showUpdateButtons(True)
-            tbDocNo.Text = getUpdatedDocumentNo()
         End If
     End Sub
 
@@ -295,7 +294,6 @@
         setReadOnlyColumns()
 
         If enable = True Then
-            tbDocNo.Text = getUpdatedDocumentNo()
             tbSupplier.Focus()
             enterGrid.ClearSelection()
 
@@ -304,18 +302,6 @@
             enterGrid.Columns.Item("Disc3").Visible = True
         End If
     End Sub
-
-    Private Function getUpdatedDocumentNo() As String
-        Using context As New DatabaseContext()
-            Dim counter = context.counters.Where(Function(c) _
-               c.Owner.Equals(Constants.OWNER_NAME_PURCHASE_RETURN)).FirstOrDefault
-
-            If Not IsNothing(counter) Then
-                Return Util.getFormattedDocumentNo(counter.Prefix, counter.Count)
-            End If
-        End Using
-        Return Nothing
-    End Function
 
     Public Sub reset() Implements IControl.reset
         lblBy.Visible = False
@@ -334,11 +320,6 @@
         Using context As New DatabaseContext()
             currentObject = New purchasereturn
             setObjectValues(context)
-
-            Dim counter = context.counters.Where(Function(c) _
-            c.Owner.Equals(Constants.OWNER_NAME_PURCHASE_RETURN)) _
-                .SingleOrDefault()
-            counter.Count += 1
 
             context.purchasereturns.Add(currentObject)
 
@@ -369,10 +350,6 @@
 
     Public Sub setObjectValues(ByRef context As DatabaseContext)
         updateTotalAmount()
-
-        If Controller.updateMode.Equals(Constants.UPDATE_MODE_CREATE) Then
-            currentObject.DocumentNo = getUpdatedDocumentNo()
-        End If
 
         currentObject.Date = docDate.Value
         currentObject.ModifyBy = Controller.currentUser.Username
